@@ -291,12 +291,12 @@
     <div class="p-5 space-y-5 overflow-y-auto flex-1">
       <!-- API 키 -->
       <div>
-        <label class="block text-sm font-medium text-slate-700 mb-1.5">OpenRouter API 키</label>
+        <label class="block text-base font-bold mb-1.5" style="color:#1d4ed8;">OpenRouter API 키</label>
         <div class="relative">
-          <input id="apiKeyInput" type="password" placeholder="sk-or-v1-..."
-            class="w-full rounded-lg border border-slate-300 px-3 py-2 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <textarea id="apiKeyInput" rows="4" placeholder="sk-or-v1-..." style="-webkit-text-security: disc; border-color:#60a5fa; border-width:2px;"
+            class="w-full rounded-lg px-3 py-2 pr-16 text-sm resize-y break-all focus:outline-none" onfocus="this.style.borderColor='#2563eb'; this.style.boxShadow='0 0 0 2px rgba(37,99,235,.4)';" onblur="this.style.borderColor='#60a5fa'; this.style.boxShadow='none';"></textarea>
           <button id="toggleKeyBtn" type="button"
-            class="absolute right-1 top-1/2 -translate-y-1/2 text-xs px-2 py-1 text-slate-500 hover:text-slate-700">보기</button>
+            class="absolute right-1 top-1 text-xs px-2 py-1 text-slate-500 hover:text-slate-700">보기</button>
         </div>
       </div>
 
@@ -2011,14 +2011,13 @@
         throw new Error(errMsg);
       }
 
-      removeTypingIndicator();
-
       if (useStream) {
         await handleStreamingResponse(res);
       } else {
         const data = await res.json();
         const reply = data.choices && data.choices[0] && data.choices[0].message
           ? data.choices[0].message.content : '';
+        removeTypingIndicator();
         messages.push({ role: 'assistant', content: reply, rawResponse: data });
         appendMessageBubble('assistant', reply, messages.length - 1);
         persistHistory();
@@ -2036,37 +2035,48 @@
     const reader = res.body.getReader();
     const decoder = new TextDecoder('utf-8');
     let assistantText = '';
+    let contentDiv = null;
     const rawChunks = [];
     messages.push({ role: 'assistant', content: '', rawChunks: rawChunks });
-    const contentDiv = appendMessageBubble('assistant', '', messages.length - 1);
 
     let buffer = '';
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      buffer += decoder.decode(value, { stream: true });
+    try {
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
 
-      const lines = buffer.split('\n');
-      buffer = lines.pop(); // 마지막 불완전한 줄은 다음 루프로 이월
+        const lines = buffer.split('\n');
+        buffer = lines.pop(); // 마지막 불완전한 줄은 다음 루프로 이월
 
-      for (const line of lines) {
-        const trimmed = line.trim();
-        if (!trimmed.startsWith('data:')) continue;
-        const payload = trimmed.slice(5).trim();
-        if (payload === '[DONE]') continue;
-        try {
-          const json = JSON.parse(payload);
-          rawChunks.push(json);
-          const delta = json.choices && json.choices[0] && json.choices[0].delta
-            ? json.choices[0].delta.content : '';
-          if (delta) {
-            assistantText += delta;
-            contentDiv.innerHTML = renderMarkdown(assistantText);
-            scrollToBottom();
+        for (const line of lines) {
+          const trimmed = line.trim();
+          if (!trimmed.startsWith('data:')) continue;
+          const payload = trimmed.slice(5).trim();
+          if (payload === '[DONE]') continue;
+          try {
+            const json = JSON.parse(payload);
+            rawChunks.push(json);
+            const delta = json.choices && json.choices[0] && json.choices[0].delta
+              ? json.choices[0].delta.content : '';
+            if (delta) {
+              assistantText += delta;
+              if (!contentDiv) {
+                removeTypingIndicator();
+                contentDiv = appendMessageBubble('assistant', '', messages.length - 1);
+              }
+              contentDiv.innerHTML = renderMarkdown(assistantText);
+              scrollToBottom();
+            }
+          } catch (e) {
+            // OpenRouter가 가끔 처리 중(comment) 라인을 보낼 수 있음 -> 무시
           }
-        } catch (e) {
-          // OpenRouter가 가끔 처리 중(comment) 라인을 보낼 수 있음 -> 무시
         }
+      }
+    } finally {
+      removeTypingIndicator();
+      if (!contentDiv) {
+        contentDiv = appendMessageBubble('assistant', '', messages.length - 1);
       }
     }
 
@@ -2077,9 +2087,9 @@
   // ---------- 이벤트 바인딩 ----------
   els.apiKeyInput.addEventListener('input', persistApiKey);
   els.toggleKeyBtn.addEventListener('click', function () {
-    const isPassword = els.apiKeyInput.type === 'password';
-    els.apiKeyInput.type = isPassword ? 'text' : 'password';
-    els.toggleKeyBtn.textContent = isPassword ? '숨기기' : '보기';
+    const isMasked = els.apiKeyInput.style.webkitTextSecurity !== 'none';
+    els.apiKeyInput.style.webkitTextSecurity = isMasked ? 'none' : 'disc';
+    els.toggleKeyBtn.textContent = isMasked ? '숨기기' : '보기';
   });
 
   els.modelSelect.addEventListener('change', function () {
