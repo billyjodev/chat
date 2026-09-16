@@ -446,6 +446,14 @@
           </div>
         </div>
 
+        <div class="adv-toggle-row">
+          <div>
+            <label for="showModelPrice">모델 선택 목록에 가격 표시</label>
+            <p class="adv-field-desc">사이드바 모델 선택, 폴백 모델 검색, Provider 라우팅의 대상 모델 목록에 100만 토큰당 가격을 함께 보여줍니다. 기본값은 미표시입니다.</p>
+          </div>
+          <label class="adv-switch"><input id="showModelPrice" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+
         <div class="adv-field">
           <label for="systemPrompt">시스템 프롬프트 (선택)</label>
           <p class="adv-field-desc">대화 전체에 적용될 모델의 역할과 지침을 정의합니다.</p>
@@ -835,6 +843,7 @@
     copyPreviewBtn: document.getElementById('copyPreviewBtn'),
     includeTestErrorModels: document.getElementById('includeTestErrorModels'),
     priceFilterOptions: document.getElementById('priceFilterOptions'),
+    showModelPrice: document.getElementById('showModelPrice'),
 
     // Provider 라우팅
     advModelSelect: document.getElementById('advModelSelect'),
@@ -1159,7 +1168,8 @@
       matches.forEach(function (m) {
         const item = document.createElement('div');
         item.className = 'adv-autocomplete-item';
-        item.innerHTML = '<span>' + escapeHtml(m.name || m.id) + '</span><span>' + escapeHtml(m.pricingLabel || '') + '</span>';
+        const priceCell = els.showModelPrice.checked ? escapeHtml(m.pricingLabel || '') : '';
+        item.innerHTML = '<span>' + escapeHtml(m.name || m.id) + '</span><span>' + priceCell + '</span>';
         item.addEventListener('mousedown', function (e) {
           e.preventDefault();
           advFallbackModels.push(m.id);
@@ -1190,10 +1200,17 @@
     sliderRefs[id] = { enabledEl: enabledEl, rangeEl: rangeEl, valueEl: valueEl, refresh: refresh };
   }
 
+  // 모델 목록에 덧붙일 가격 표기 (고급 설정에서 켠 경우에만)
+  function modelPriceSuffix(model) {
+    if (!els.showModelPrice.checked) return '';
+    return model && model.pricingLabel ? ' — ' + model.pricingLabel : '';
+  }
+
   function isAdvancedActive() {
     if (els.systemPrompt.value !== DEFAULT_SYSTEM_PROMPT) return true;
     if (parseFloat(els.tempSlider.value) !== 0.7) return true;
     if (els.includeTestErrorModels.checked) return true;
+    if (els.showModelPrice.checked) return true;
     if (advProviderOrder.length > 0 || advProviderIgnore.length > 0 || advProviderQuant.length > 0 || advFallbackModels.length > 0) return true;
     if (advProviderSort || advDataCollection) return true;
     if (!els.allowFallbacks.checked || els.requireParameters.checked) return true;
@@ -1225,6 +1242,7 @@
       jsonMode: els.jsonMode.checked,
       middleOut: els.middleOut.checked,
       includeTestErrorModels: els.includeTestErrorModels.checked,
+      showModelPrice: els.showModelPrice.checked,
       sliders: sliders,
     };
   }
@@ -1252,6 +1270,7 @@
       if (p.jsonMode !== undefined) els.jsonMode.checked = !!p.jsonMode;
       if (p.middleOut !== undefined) els.middleOut.checked = !!p.middleOut;
       if (p.includeTestErrorModels !== undefined) els.includeTestErrorModels.checked = !!p.includeTestErrorModels;
+      els.showModelPrice.checked = p.showModelPrice === true;
       if (p.sliders) {
         SLIDER_IDS.forEach(function (id) {
           if (!p.sliders[id]) return;
@@ -1282,6 +1301,7 @@
     els.jsonMode.checked = false;
     els.middleOut.checked = false;
     els.includeTestErrorModels.checked = false;
+    els.showModelPrice.checked = false;
     els.fallbackModelSearch.value = '';
     els.fallbackModelResults.classList.add('hidden');
     els.fallbackModelResults.innerHTML = '';
@@ -1601,8 +1621,7 @@
     }).forEach(function (m) {
       const opt = document.createElement('option');
       opt.value = m.id;
-      const priceTag = m.pricingLabel ? ' — ' + m.pricingLabel : '';
-      opt.textContent = (m.name || m.id) + priceTag;
+      opt.textContent = (m.name || m.id) + modelPriceSuffix(m);
       els.advModelSelect.appendChild(opt);
     });
     els.advModelSelect.value = els.modelSelect.value;
@@ -1802,8 +1821,7 @@
     filtered.forEach(function (m) {
       const opt = document.createElement('option');
       opt.value = m.id;
-      const priceTag = m.pricingLabel ? ' — ' + m.pricingLabel : '';
-      opt.textContent = (m.name || m.id) + priceTag;
+      opt.textContent = (m.name || m.id) + modelPriceSuffix(m);
       els.modelSelect.appendChild(opt);
     });
 
@@ -2126,6 +2144,13 @@
   });
 
   els.includeTestErrorModels.addEventListener('change', function () {
+    persistAdvanced();
+    updateAdvancedSummary();
+    populateModelSelect(allModels, els.modelFilter.value);
+    populateAdvModelSelect();
+  });
+
+  els.showModelPrice.addEventListener('change', function () {
     persistAdvanced();
     updateAdvancedSummary();
     populateModelSelect(allModels, els.modelFilter.value);
