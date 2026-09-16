@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="ko" class="h-full">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OpenRouter 챗봇</title>
+<style>
+*,:after,:before{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgba(59,130,246,.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/*! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com*/*,:after,:before{box-sizing:border-box;border:0 solid #e5e7eb}:after,:before{--tw-content:""}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;-o-tab-size:4;tab-size:4;font-family:ui-sans-serif,system-ui,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0}fieldset,legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::-moz-placeholder,textarea::-moz-placeholder{opacity:1;color:#9ca3af}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0}.inset-y-0{top:0;bottom:0}.right-0{right:0}.right-1{right:.25rem}.top-1\/2{top:50%}.z-40{z-index:40}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-1\.5{margin-bottom:.375rem}.ml-2{margin-left:.5rem}.mt-1{margin-top:.25rem}.mt-1\.5{margin-top:.375rem}.mt-2{margin-top:.5rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.hidden{display:none}.h-1\.5{height:.375rem}.h-4{height:1rem}.h-full{height:100%}.max-h-40{max-height:10rem}.w-1\.5{width:.375rem}.w-4{width:1rem}.w-80{width:20rem}.w-full{width:100%}.min-w-0{min-width:0}.max-w-3xl{max-width:48rem}.max-w-\[85\%\]{max-width:85%}.max-w-\[85vw\]{max-width:85vw}.flex-1{flex:1 1 0%}.shrink-0{flex-shrink:0}.-translate-y-1\/2{--tw-translate-y:-50%;transform:translate(var(--tw-translate-x),var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.resize-none{resize:none}.flex-col{flex-direction:column}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-start{justify-content:flex-start}.justify-end{justify-content:flex-end}.justify-between{justify-content:space-between}.gap-1{gap:.25rem}.gap-1\.5{gap:.375rem}.gap-2{gap:.5rem}.space-y-4>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem*var(--tw-space-y-reverse))}.space-y-5>:not([hidden])~:not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.25rem*(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.25rem*var(--tw-space-y-reverse))}.overflow-y-auto{overflow-y:auto}.rounded-2xl{border-radius:1rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:.5rem}.rounded-xl{border-radius:.75rem}.rounded-bl-sm{border-bottom-left-radius:.125rem}.rounded-br-sm{border-bottom-right-radius:.125rem}.border{border-width:1px}.border-b{border-bottom-width:1px}.border-r{border-right-width:1px}.border-t{border-top-width:1px}.border-amber-200{--tw-border-opacity:1;border-color:rgb(253 230 138/var(--tw-border-opacity,1))}.border-emerald-200{--tw-border-opacity:1;border-color:rgb(167 243 208/var(--tw-border-opacity,1))}.border-red-200{--tw-border-opacity:1;border-color:rgb(254 202 202/var(--tw-border-opacity,1))}.border-slate-200{--tw-border-opacity:1;border-color:rgb(226 232 240/var(--tw-border-opacity,1))}.border-slate-300{--tw-border-opacity:1;border-color:rgb(203 213 225/var(--tw-border-opacity,1))}.bg-amber-50{--tw-bg-opacity:1;background-color:rgb(255 251 235/var(--tw-bg-opacity,1))}.bg-black\/40{background-color:rgba(0,0,0,.4)}.bg-emerald-50{--tw-bg-opacity:1;background-color:rgb(236 253 245/var(--tw-bg-opacity,1))}.bg-indigo-600{--tw-bg-opacity:1;background-color:rgb(79 70 229/var(--tw-bg-opacity,1))}.bg-red-50{--tw-bg-opacity:1;background-color:rgb(254 242 242/var(--tw-bg-opacity,1))}.bg-slate-100{--tw-bg-opacity:1;background-color:rgb(241 245 249/var(--tw-bg-opacity,1))}.bg-slate-400{--tw-bg-opacity:1;background-color:rgb(148 163 184/var(--tw-bg-opacity,1))}.bg-white{--tw-bg-opacity:1;background-color:rgb(255 255 255/var(--tw-bg-opacity,1))}.p-4{padding:1rem}.p-5{padding:1.25rem}.px-2{padding-left:.5rem;padding-right:.5rem}.px-3{padding-left:.75rem;padding-right:.75rem}.px-4{padding-left:1rem;padding-right:1rem}.px-5{padding-left:1.25rem;padding-right:1.25rem}.py-1{padding-top:.25rem;padding-bottom:.25rem}.py-16{padding-top:4rem;padding-bottom:4rem}.py-2{padding-top:.5rem;padding-bottom:.5rem}.py-2\.5{padding-top:.625rem;padding-bottom:.625rem}.py-3{padding-top:.75rem;padding-bottom:.75rem}.py-6{padding-top:1.5rem;padding-bottom:1.5rem}.pr-16{padding-right:4rem}.text-center{text-align:center}.font-mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace}.text-lg{font-size:1.125rem;line-height:1.75rem}.text-sm{font-size:.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:.75rem;line-height:1rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.leading-none{line-height:1}.text-amber-700{--tw-text-opacity:1;color:rgb(180 83 9/var(--tw-text-opacity,1))}.text-emerald-700{--tw-text-opacity:1;color:rgb(4 120 87/var(--tw-text-opacity,1))}.text-indigo-600{--tw-text-opacity:1;color:rgb(79 70 229/var(--tw-text-opacity,1))}.text-red-700{--tw-text-opacity:1;color:rgb(185 28 28/var(--tw-text-opacity,1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184/var(--tw-text-opacity,1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139/var(--tw-text-opacity,1))}.text-slate-600{--tw-text-opacity:1;color:rgb(71 85 105/var(--tw-text-opacity,1))}.text-slate-700{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.text-slate-800{--tw-text-opacity:1;color:rgb(30 41 59/var(--tw-text-opacity,1))}.text-slate-900{--tw-text-opacity:1;color:rgb(15 23 42/var(--tw-text-opacity,1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255/var(--tw-text-opacity,1))}.accent-indigo-600{accent-color:#4f46e5}.shadow-sm{--tw-shadow:0 1px 2px 0 rgba(0,0,0,.05);--tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow)}.\!filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)!important}.filter{filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)}.transition{transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;transition-property:color,background-color,border-color,text-decoration-color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;transition-timing-function:cubic-bezier(.4,0,.2,1);transition-duration:.15s}.hover\:bg-indigo-700:hover{--tw-bg-opacity:1;background-color:rgb(67 56 202/var(--tw-bg-opacity,1))}.hover\:bg-slate-50:hover{--tw-bg-opacity:1;background-color:rgb(248 250 252/var(--tw-bg-opacity,1))}.hover\:text-slate-700:hover{--tw-text-opacity:1;color:rgb(51 65 85/var(--tw-text-opacity,1))}.hover\:underline:hover{text-decoration-line:underline}.focus\:border-indigo-500:focus{--tw-border-opacity:1;border-color:rgb(99 102 241/var(--tw-border-opacity,1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.focus\:ring-2:focus{--tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);--tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);box-shadow:var(--tw-ring-offset-shadow),var(--tw-ring-shadow),var(--tw-shadow,0 0 #0000)}.focus\:ring-indigo-500:focus{--tw-ring-opacity:1;--tw-ring-color:rgb(99 102 241/var(--tw-ring-opacity,1))}.disabled\:cursor-not-allowed:disabled{cursor:not-allowed}.disabled\:bg-slate-300:disabled{--tw-bg-opacity:1;background-color:rgb(203 213 225/var(--tw-bg-opacity,1))}@media (min-width:768px){.md\:flex{display:flex}.md\:hidden{display:none}.md\:w-80{width:20rem}}
+</style>
+<style>
+  /* 스크롤바 살짝 다듬기 */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+  .dark ::-webkit-scrollbar-thumb { background: #475569; }
+
+  .msg-content p { margin: 0.5em 0; }
+  .msg-content p:first-child { margin-top: 0; }
+  .msg-content p:last-child { margin-bottom: 0; }
+  .msg-content pre {
+    background: #0f172a; color: #e2e8f0; padding: 0.75rem 1rem;
+    border-radius: 0.5rem; overflow-x: auto; font-size: 0.85em; margin: 0.5em 0;
+  }
+  .msg-content code {
+    background: rgba(148,163,184,0.2); padding: 0.1em 0.35em; border-radius: 0.25em;
+    font-size: 0.9em;
+  }
+  .msg-content pre code { background: transparent; padding: 0; }
+
+  .msg-bubble-clickable { transition: box-shadow .15s, opacity .15s; }
+  .msg-bubble-clickable:hover { opacity: 0.88; box-shadow: 0 0 0 2px rgba(99,102,241,.35); }
+
+  @keyframes blink { 0%, 100% { opacity: 0.2; } 50% { opacity: 1; } }
+  .typing-dot { animation: blink 1.4s infinite both; }
+  .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+  .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+
+  /* ===== 고급 설정 진입 버튼 (사이드바) ===== */
+  .adv-open-btn {
+    width: 100%; display: flex; align-items: center; justify-content: space-between;
+    border: 1px solid #cbd5e1; border-radius: 0.625rem; padding: 0.6rem 0.75rem;
+    font-size: 0.8125rem; font-weight: 600; color: #334155; background: #fff; cursor: pointer;
+  }
+  .adv-open-btn:hover { background: #f8fafc; border-color: #94a3b8; }
+  .adv-open-btn-arrow { color: #94a3b8; }
+  .adv-hint { font-size: 0.75rem; color: #94a3b8; margin: 0.4rem 0 0; }
+
+  /* ===== 전체화면 모달 ===== */
+  .adv-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,.55); z-index: 60; display: none;
+  }
+  .adv-modal-overlay.open { display: block; }
+  .adv-modal {
+    position: fixed; inset: 0; z-index: 61; background: #f8fafc;
+    display: none; flex-direction: column;
+  }
+  .adv-modal.open { display: flex; }
+  @media (min-width: 768px) {
+    .adv-modal.open {
+      inset: 2.5vh 5vw; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      max-width: 960px; margin: 0 auto; height: 95vh;
+    }
+  }
+  .adv-modal-header {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    padding: 1.25rem 1.5rem; border-bottom: 1px solid #e2e8f0; background: #fff; flex-shrink: 0;
+  }
+  .adv-modal-title { font-size: 1.125rem; font-weight: 700; color: #0f172a; margin: 0; }
+  .adv-modal-subtitle { font-size: 0.8125rem; color: #64748b; margin: 0.35rem 0 0; max-width: 40rem; }
+  .adv-modal-close {
+    border: none; background: transparent; font-size: 1.75rem; line-height: 1;
+    color: #94a3b8; cursor: pointer; padding: 0.25rem; flex-shrink: 0;
+  }
+  .adv-modal-close:hover { color: #334155; }
+  .adv-modal-body { flex: 1; overflow-y: auto; display: flex; }
+  .adv-modal-nav { display: none; }
+  @media (min-width: 860px) {
+    .adv-modal-nav {
+      display: flex; flex-direction: column; gap: 0.25rem; width: 12rem; flex-shrink: 0;
+      padding: 1.5rem 1rem; border-right: 1px solid #e2e8f0; align-self: flex-start; position: sticky; top: 0;
+    }
+    .adv-modal-nav a {
+      font-size: 0.8125rem; color: #475569; text-decoration: none; padding: 0.5rem 0.75rem; border-radius: 0.5rem;
+    }
+    .adv-modal-nav a:hover { background: #f1f5f9; color: #1e293b; }
+  }
+  .adv-modal-content { flex: 1; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; max-width: 44rem; margin: 0 auto; width: 100%; }
+  .adv-modal-footer {
+    display: flex; justify-content: space-between; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem;
+    border-top: 1px solid #e2e8f0; background: #fff; flex-shrink: 0; flex-wrap: wrap;
+  }
+  .adv-modal-footer-right { display: flex; gap: 0.75rem; }
+
+  /* ===== API 호출 미리보기 ===== */
+  .adv-preview-panel {
+    flex-shrink: 0; display: none; flex-direction: column; background: #0f172a;
+    border-top: 1px solid #e2e8f0; max-height: 15rem;
+  }
+  .adv-preview-panel.open { display: flex; }
+  .adv-preview-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.55rem 1.5rem; border-bottom: 1px solid rgba(255,255,255,.08); flex-shrink: 0;
+  }
+  .adv-preview-title { font-size: 0.7rem; font-weight: 700; letter-spacing: .03em; color: #94a3b8; text-transform: uppercase; margin: 0; }
+  .adv-preview-copy {
+    font-size: 0.7rem; color: #94a3b8; background: transparent; border: 1px solid rgba(255,255,255,.18);
+    border-radius: 0.375rem; padding: 0.2rem 0.65rem; cursor: pointer; flex-shrink: 0;
+  }
+  .adv-preview-copy:hover { color: #e2e8f0; border-color: rgba(255,255,255,.35); }
+  .adv-preview-code {
+    margin: 0; padding: 0.75rem 1.5rem 1rem; overflow: auto; color: #e2e8f0; font-size: 0.75rem;
+    line-height: 1.55; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    white-space: pre;
+  }
+  .adv-reset-btn {
+    border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.55rem 1.1rem; font-size: 0.8125rem;
+    color: #64748b; background: transparent; cursor: pointer; font-weight: 600;
+  }
+  .adv-reset-btn:hover { background: #f8fafc; }
+  .adv-save-btn {
+    background: #4f46e5; color: #fff; border: none; border-radius: 0.5rem; padding: 0.55rem 1.25rem;
+    font-size: 0.8125rem; font-weight: 600; cursor: pointer;
+  }
+  .adv-save-btn:hover { background: #4338ca; }
+
+  /* ===== API 호출 코드 전용 모달 (메인 화면) ===== */
+  .api-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,.55); z-index: 60; display: none;
+  }
+  .api-modal-overlay.open { display: block; }
+  .api-modal {
+    position: fixed; inset: 0; z-index: 61; display: none; align-items: center; justify-content: center; padding: 1.5rem;
+  }
+  .api-modal.open { display: flex; }
+  .api-modal-card {
+    background: #0f172a; border-radius: 1rem; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    max-width: 46rem; width: 100%; max-height: 85vh; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .api-modal-header {
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+    padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.08); flex-shrink: 0;
+  }
+  .api-modal-title { font-size: 0.95rem; font-weight: 700; color: #e2e8f0; margin: 0; }
+  .api-modal-subtitle { font-size: 0.75rem; color: #94a3b8; margin: 0.3rem 0 0; }
+  .api-modal-actions { display: flex; gap: 0.5rem; align-items: flex-start; flex-shrink: 0; }
+  .api-modal-close {
+    border: none; background: transparent; font-size: 1.5rem; line-height: 1;
+    color: #94a3b8; cursor: pointer; padding: 0 0.25rem; flex-shrink: 0;
+  }
+  .api-modal-close:hover { color: #e2e8f0; }
+  .api-modal-body { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
+  .api-modal-section { padding: 0 1.25rem; }
+  .api-modal-section:first-child { padding-top: 1rem; }
+  .api-modal-section:last-child { padding-bottom: 1.25rem; }
+  .api-modal-section-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: .03em; color: #94a3b8; text-transform: uppercase;
+    margin: 0.75rem 0 0.35rem; display: flex; align-items: center; gap: 0.5rem;
+  }
+  .api-modal-status {
+    font-size: 0.7rem; font-weight: 600; text-transform: none; letter-spacing: 0;
+    padding: 0.1rem 0.55rem; border-radius: 9999px;
+  }
+  .api-modal-status:empty { display: none; }
+  .api-modal-status.loading { background: rgba(148,163,184,.15); color: #cbd5e1; }
+  .api-modal-status.ok { background: rgba(16,185,129,.15); color: #34d399; }
+  .api-modal-status.error { background: rgba(248,113,113,.15); color: #f87171; }
+  .api-modal-code {
+    margin: 0; padding: 0 0 0.5rem; overflow-x: auto; color: #e2e8f0; font-size: 0.8rem;
+    line-height: 1.55; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .chat-highlight, .chat-highlight-green, .chat-highlight-blue {
+    padding: 0 3px; border-radius: 3px; font-weight: 700;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+  .chat-highlight { background: #fde047; color: #1e1b06; }
+  .chat-highlight-green { background: #86efac; color: #052e14; }
+  .chat-highlight-blue { background: #7dd3fc; color: #082f49; }
+
+  /* ===== 섹션 카드 ===== */
+  .adv-section-card {
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 0.875rem; padding: 1.25rem;
+    display: flex; flex-direction: column; gap: 1rem;
+  }
+  .adv-card-title { font-size: 0.9375rem; font-weight: 700; color: #0f172a; margin: 0; }
+  .adv-card-desc { font-size: 0.8125rem; color: #64748b; margin: -0.5rem 0 0; }
+  .adv-field-desc { font-size: 0.75rem; color: #94a3b8; margin: 0.15rem 0 0.5rem; line-height: 1.4; }
+  .adv-field label { display: block; font-size: 0.8125rem; font-weight: 600; color: #1e293b; margin-bottom: 0.15rem; }
+  .adv-input {
+    width: 100%; border: 1px solid #cbd5e1; border-radius: 0.5rem; padding: 0.55rem 0.7rem;
+    font-size: 0.8125rem; background: #fff; color: #1e293b;
+  }
+  .adv-input:focus { outline: none; box-shadow: 0 0 0 2px rgba(99,102,241,.5); border-color: #6366f1; }
+  .adv-param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  @media (max-width: 560px) { .adv-param-grid { grid-template-columns: 1fr; } }
+
+  /* ===== 토글 스위치 ===== */
+  .adv-toggle-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .adv-toggle-row label { font-size: 0.8125rem; font-weight: 600; color: #1e293b; }
+  .adv-switch { position: relative; display: inline-block; width: 2.5rem; height: 1.5rem; cursor: pointer; flex-shrink: 0; }
+  .adv-switch input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+  .adv-switch-track { position: absolute; inset: 0; background: #cbd5e1; border-radius: 9999px; transition: background .15s; pointer-events: none; }
+  .adv-switch-track::after {
+    content: ''; position: absolute; top: 2px; left: 2px; width: 1.25rem; height: 1.25rem;
+    background: #fff; border-radius: 50%; transition: transform .15s; box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  }
+  .adv-switch input:checked + .adv-switch-track { background: #4f46e5; }
+  .adv-switch input:checked + .adv-switch-track::after { transform: translateX(1rem); }
+  .adv-switch input:focus-visible + .adv-switch-track { box-shadow: 0 0 0 2px rgba(99,102,241,.5); }
+
+  /* ===== 선택 그룹 (segmented choice) ===== */
+  .adv-choice-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .adv-choice {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 0.15rem;
+    border: 1px solid #cbd5e1; border-radius: 0.625rem; padding: 0.5rem 0.75rem;
+    background: #fff; font-size: 0.8125rem; font-weight: 600; color: #334155; cursor: pointer;
+    text-align: left; flex: 1 1 auto; min-width: 7.5rem;
+  }
+  .adv-choice:hover { border-color: #94a3b8; }
+  .adv-choice.active { border-color: #4f46e5; background: #eef2ff; color: #4338ca; }
+  .adv-choice-desc { font-size: 0.7rem; font-weight: 400; color: #94a3b8; }
+  .adv-choice.active .adv-choice-desc { color: #6366f1; }
+
+  /* ===== 칩 빌더 (provider / 폴백 모델) ===== */
+  .adv-chip-builder { display: flex; flex-direction: column; gap: 0.5rem; }
+  .adv-chip-list { display: flex; flex-wrap: wrap; gap: 0.4rem; min-height: 1.6rem; }
+  .adv-chip-empty { font-size: 0.75rem; color: #94a3b8; align-self: center; }
+  .adv-chip {
+    display: inline-flex; align-items: center; gap: 0.35rem; background: #eef2ff; color: #4338ca;
+    border: 1px solid #c7d2fe; border-radius: 9999px; padding: 0.2rem 0.4rem 0.2rem 0.65rem;
+    font-size: 0.75rem; font-weight: 600;
+  }
+  .adv-chip-order {
+    display: inline-flex; align-items: center; justify-content: center; width: 1.1rem; height: 1.1rem;
+    background: #4f46e5; color: #fff; border-radius: 50%; font-size: 0.65rem; font-weight: 700; flex-shrink: 0;
+  }
+  .adv-chip-remove { border: none; background: transparent; color: #6366f1; cursor: pointer; font-size: 0.95rem; line-height: 1; padding: 0 0.1rem; }
+  .adv-chip-remove:hover { color: #312e81; }
+
+  /* ===== 양자화 체크박스 그리드 ===== */
+  .adv-checkbox-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr)); gap: 0.5rem; }
+  .adv-checkbox-item {
+    display: flex; align-items: flex-start; gap: 0.45rem; border: 1px solid #e2e8f0; border-radius: 0.5rem;
+    padding: 0.45rem 0.6rem; cursor: pointer;
+  }
+  .adv-checkbox-item input { accent-color: #4f46e5; margin-top: 0.15rem; }
+  .adv-checkbox-item.checked { border-color: #4f46e5; background: #eef2ff; }
+  .adv-checkbox-text { display: flex; flex-direction: column; line-height: 1.25; }
+  .adv-checkbox-label { font-size: 0.75rem; font-weight: 600; color: #334155; }
+  .adv-checkbox-item.checked .adv-checkbox-label { color: #4338ca; }
+  .adv-checkbox-desc { font-size: 0.65rem; color: #94a3b8; }
+
+  /* ===== 슬라이더 (파라미터) ===== */
+  .adv-slider-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .adv-slider-top-row { display: flex; align-items: center; justify-content: space-between; }
+  .adv-slider-toggle-label { display: flex; align-items: center; gap: 0.55rem; }
+  .adv-slider-toggle-label span { font-size: 0.8125rem; font-weight: 600; color: #1e293b; }
+  .adv-slider-value {
+    font-size: 0.75rem; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: #4f46e5;
+    font-weight: 600; background: #eef2ff; padding: 0.1rem 0.55rem; border-radius: 9999px; flex-shrink: 0;
+  }
+  .adv-range { width: 100%; accent-color: #4f46e5; }
+  .adv-range:disabled { opacity: 0.35; }
+
+  /* ===== 폴백 모델 자동완성 ===== */
+  .adv-autocomplete-wrap { position: relative; }
+  .adv-autocomplete-results {
+    border: 1px solid #e2e8f0; border-radius: 0.5rem; margin-top: 0.35rem; max-height: 12rem;
+    overflow-y: auto; background: #fff; box-shadow: 0 8px 20px rgba(0,0,0,.1);
+  }
+  .adv-autocomplete-item {
+    padding: 0.5rem 0.75rem; font-size: 0.8125rem; cursor: pointer; display: flex;
+    justify-content: space-between; gap: 0.5rem; color: #1e293b;
+  }
+  .adv-autocomplete-item:hover { background: #eef2ff; }
+  .adv-autocomplete-item span:last-child { color: #94a3b8; font-size: 0.75rem; flex-shrink: 0; }
+  .adv-autocomplete-empty { padding: 0.5rem 0.75rem; font-size: 0.8125rem; color: #94a3b8; }
+</style>
+</head>
+<body class="h-full bg-slate-100 text-slate-800">
+<div class="flex h-full">
+
+  <!-- 사이드바 -->
+  <aside class="hidden md:flex md:w-80 flex-col bg-white border-r border-slate-200 shrink-0">
+    <div class="p-5 border-b border-slate-200">
+      <h1 class="text-lg font-bold text-slate-900">OpenRouter 챗봇</h1>
+      <p class="text-xs text-slate-500 mt-1">API 키와 모델을 설정하세요</p>
+    </div>
+
+    <div class="p-5 space-y-5 overflow-y-auto flex-1">
+      <!-- API 키 -->
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">OpenRouter API 키</label>
+        <div class="relative">
+          <input id="apiKeyInput" type="password" placeholder="sk-or-v1-..."
+            class="w-full rounded-lg border border-slate-300 px-3 py-2 pr-16 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+          <button id="toggleKeyBtn" type="button"
+            class="absolute right-1 top-1/2 -translate-y-1/2 text-xs px-2 py-1 text-slate-500 hover:text-slate-700">보기</button>
+        </div>
+      </div>
+
+      <!-- 모델 선택 -->
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">모델</label>
+        <select id="modelSelect"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+          <option value="">모델 목록 불러오는 중...</option>
+        </select>
+        <div class="flex items-center justify-between mt-1.5">
+          <p id="modelHint" class="text-xs text-slate-400"></p>
+          <button id="refreshModelsBtn" type="button" class="text-xs text-indigo-600 hover:underline shrink-0 ml-2">새로고침</button>
+        </div>
+      </div>
+
+      <!-- 검색 필터 -->
+      <div>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="block text-sm font-medium text-slate-700">모델 검색</label>
+          <label class="flex items-center gap-1.5 cursor-pointer">
+            <input id="freeOnlyToggle" type="checkbox" checked class="h-4 w-4 accent-indigo-600" />
+            <span class="text-xs text-slate-600">무료 모델만 보기</span>
+          </label>
+        </div>
+        <input id="modelFilter" type="text" placeholder="예: gpt, claude, llama, free"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+      </div>
+
+      <!-- 스트리밍 토글 -->
+      <div class="flex items-center justify-between">
+        <label for="streamToggle" class="text-sm font-medium text-slate-700">스트리밍 응답</label>
+        <input id="streamToggle" type="checkbox" class="h-4 w-4 accent-indigo-600" />
+      </div>
+
+      <!-- 고급 설정 진입 -->
+      <div>
+        <button id="openAdvancedBtn" type="button" class="adv-open-btn">
+          <span>⚙️ 고급 설정 (시스템 프롬프트 · Temperature · Provider)</span>
+          <span class="adv-open-btn-arrow">›</span>
+        </button>
+        <p id="advancedSummary" class="adv-hint">기본값 사용 중</p>
+      </div>
+    </div>
+
+    <div class="p-5 border-t border-slate-200">
+      <button id="clearChatBtn" type="button"
+        class="w-full rounded-lg border border-slate-300 text-slate-600 hover:bg-slate-50 text-sm font-medium py-2 transition">
+        대화 초기화
+      </button>
+    </div>
+  </aside>
+
+  <!-- 메인 채팅 영역 -->
+  <main class="flex-1 flex flex-col min-w-0">
+
+    <!-- 모바일 상단바 -->
+    <header class="md:hidden flex items-center justify-between p-4 bg-white border-b border-slate-200">
+      <h1 class="font-bold text-slate-900">OpenRouter 챗봇</h1>
+      <button id="mobileSettingsBtn" class="text-sm text-indigo-600 font-medium">설정</button>
+    </header>
+
+    <!-- 채팅 툴바 -->
+    <div class="flex items-center justify-end px-4 py-2 border-b border-slate-200 bg-white">
+      <button id="mainApiPreviewBtn" type="button" class="text-xs text-indigo-600 hover:underline font-medium">API 호출 코드 보기</button>
+    </div>
+
+    <!-- 상태 배너 -->
+    <div id="statusBanner" class="hidden px-4 py-2 text-sm text-center border-b"></div>
+
+    <!-- 메시지 영역 -->
+    <div id="chatArea" class="flex-1 overflow-y-auto px-4 py-6 space-y-4">
+      <div class="max-w-3xl mx-auto text-center text-slate-400 text-sm py-16">
+        왼쪽에서 API 키를 입력하고 모델을 선택한 뒤 대화를 시작하세요.
+      </div>
+    </div>
+
+    <!-- 입력 영역 -->
+    <div class="border-t border-slate-200 bg-white p-4">
+      <form id="chatForm" class="max-w-3xl mx-auto flex items-end gap-2">
+        <textarea id="messageInput" rows="1" placeholder="메시지를 입력하세요..."
+          class="flex-1 resize-none rounded-xl border border-slate-300 px-4 py-3 text-sm max-h-40 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+        <button id="sendBtn" type="submit"
+          class="shrink-0 rounded-xl bg-indigo-600 hover:bg-indigo-700 disabled:bg-slate-300 disabled:cursor-not-allowed text-white px-5 py-3 text-sm font-medium transition">
+          보내기
+        </button>
+      </form>
+      <p class="max-w-3xl mx-auto text-xs text-slate-400 mt-2">Enter로 전송, Shift+Enter로 줄바꿈</p>
+    </div>
+  </main>
+</div>
+
+<!-- 모바일 설정 패널 (오버레이) -->
+<div id="mobileOverlay" class="hidden fixed inset-0 bg-black/40 z-40 md:hidden"></div>
+<div id="mobilePanel" class="hidden fixed inset-y-0 right-0 w-80 max-w-[85vw] bg-white z-50 md:hidden overflow-y-auto">
+  <div class="p-5 flex items-center justify-between border-b border-slate-200">
+    <h2 class="font-bold text-slate-900">설정</h2>
+    <button id="closeMobilePanel" class="text-slate-500 text-xl leading-none">&times;</button>
+  </div>
+  <div id="mobileSettingsMount" class="p-5"></div>
+</div>
+
+<!-- 고급 설정 전체화면 모달 -->
+<div id="advancedModalOverlay" class="adv-modal-overlay"></div>
+<div id="advancedModal" class="adv-modal" role="dialog" aria-modal="true" aria-labelledby="advancedModalTitle">
+  <div class="adv-modal-header">
+    <div>
+      <h2 id="advancedModalTitle" class="adv-modal-title">고급 설정</h2>
+      <p class="adv-modal-subtitle">시스템 프롬프트, Temperature와 함께 provider 라우팅, 폴백 모델, 응답 파라미터를 세밀하게 제어합니다. 비워두면 OpenRouter 기본값이 사용됩니다.</p>
+    </div>
+    <button id="closeAdvancedModal" type="button" class="adv-modal-close" aria-label="닫기">&times;</button>
+  </div>
+
+  <div class="adv-modal-body">
+    <nav class="adv-modal-nav">
+      <a href="#advSectionGeneral">일반</a>
+      <a href="#advSectionProvider">Provider 라우팅</a>
+      <a href="#advSectionFallback">모델 폴백</a>
+      <a href="#advSectionParams">요청 파라미터</a>
+      <a href="#advSectionResponse">응답 형식</a>
+    </nav>
+
+    <div class="adv-modal-content">
+      <!-- 일반 -->
+      <section id="advSectionGeneral" class="adv-section-card">
+        <h3 class="adv-card-title">일반</h3>
+        <p class="adv-card-desc">시스템 프롬프트와 응답의 창의성(Temperature)을 설정합니다.</p>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="includeTestErrorModels">테스트 호출 오류 모델 포함</label>
+            <p class="adv-field-desc">무료 모델 전체에 test API 호출을 해본 결과 오류 응답을 반환한 모델입니다. 기본적으로 모델 선택 목록에서 제외됩니다. 켜면 다시 표시됩니다.</p>
+          </div>
+          <label class="adv-switch"><input id="includeTestErrorModels" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+
+        <div class="adv-field">
+          <label for="systemPrompt">시스템 프롬프트 (선택)</label>
+          <p class="adv-field-desc">대화 전체에 적용될 모델의 역할과 지침을 정의합니다.</p>
+          <textarea id="systemPrompt" rows="3" placeholder="예: 너는 친절한 한국어 비서야." class="adv-input" style="resize: vertical;"></textarea>
+        </div>
+
+        <div class="adv-slider-field">
+          <div class="adv-slider-top-row">
+            <label for="tempSlider" style="font-size:0.8125rem;font-weight:600;color:#1e293b;">Temperature</label>
+            <span id="tempValue" class="adv-slider-value">0.7</span>
+          </div>
+          <p class="adv-field-desc">값이 낮을수록 일관되고 예측 가능한 답변을, 높을수록 창의적이고 다양한 답변을 생성합니다 (기본값 0.7).</p>
+          <input id="tempSlider" type="range" min="0" max="2" step="0.1" value="0.7" class="adv-range" />
+        </div>
+      </section>
+
+      <!-- Provider 라우팅 -->
+      <section id="advSectionProvider" class="adv-section-card">
+        <h3 class="adv-card-title">Provider 라우팅</h3>
+        <p class="adv-card-desc">동일한 모델을 여러 회사(provider)가 서빙할 때, 어떤 곳을 우선하고 어떤 곳을 제외할지 정합니다.</p>
+
+        <div class="adv-field">
+          <label for="advModelSelect">대상 모델</label>
+          <p class="adv-field-desc" id="providerScopeHint">모델을 선택하면 해당 모델을 지원하는 provider만 아래 목록에 표시됩니다.</p>
+          <select id="advModelSelect" class="adv-input">
+            <option value="">모델 목록 불러오는 중...</option>
+          </select>
+        </div>
+
+        <div class="adv-field">
+          <label>Provider 우선순위</label>
+          <p class="adv-field-desc">선택한 순서대로 provider를 시도합니다. 비워두면 OpenRouter가 자동으로 최적 provider를 고릅니다. 목록에서 골라 추가하세요.</p>
+          <div class="adv-chip-builder">
+            <div id="providerOrderChips" class="adv-chip-list"></div>
+            <select id="providerOrderAdd" class="adv-input">
+              <option value="">+ Provider 추가...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="adv-field">
+          <label>정렬 기준 (sort)</label>
+          <p class="adv-field-desc">우선순위를 직접 정하지 않을 때, 후보 provider를 어떤 기준으로 정렬해서 시도할지 선택합니다.</p>
+          <div id="providerSortOptions" class="adv-choice-group">
+            <button type="button" class="adv-choice" data-value="">기본값<span class="adv-choice-desc">OpenRouter 자동 라우팅</span></button>
+            <button type="button" class="adv-choice" data-value="price">가격 우선<span class="adv-choice-desc">가장 저렴한 곳부터</span></button>
+            <button type="button" class="adv-choice" data-value="throughput">처리량 우선<span class="adv-choice-desc">초당 토큰 속도가 높은 곳부터</span></button>
+            <button type="button" class="adv-choice" data-value="latency">지연시간 우선<span class="adv-choice-desc">응답이 빨리 시작되는 곳부터</span></button>
+          </div>
+        </div>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="allowFallbacks">다른 provider로 자동 폴백 허용</label>
+            <p class="adv-field-desc">우선순위의 provider가 실패하면 다른 provider로 자동 전환합니다. 끄면 지정한 provider에서만 시도합니다.</p>
+          </div>
+          <label class="adv-switch"><input id="allowFallbacks" type="checkbox" checked /><span class="adv-switch-track"></span></label>
+        </div>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="requireParameters">요청 파라미터 미지원 provider 제외</label>
+            <p class="adv-field-desc">temperature, top_p 등 이 화면에서 지정한 파라미터를 지원하지 않는 provider는 후보에서 제외합니다.</p>
+          </div>
+          <label class="adv-switch"><input id="requireParameters" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+
+        <div class="adv-field">
+          <label>데이터 수집 정책 (data_collection)</label>
+          <p class="adv-field-desc">요청/응답 데이터를 학습 등에 활용할 수 있는 provider를 허용할지 결정합니다. 민감한 대화라면 "거부"를 권장합니다.</p>
+          <div id="dataCollectionOptions" class="adv-choice-group">
+            <button type="button" class="adv-choice" data-value="">기본값</button>
+            <button type="button" class="adv-choice" data-value="allow">허용 (allow)<span class="adv-choice-desc">더 많은 provider 사용 가능</span></button>
+            <button type="button" class="adv-choice" data-value="deny">거부 (deny)<span class="adv-choice-desc">데이터 미수집 provider만 사용</span></button>
+          </div>
+        </div>
+
+        <div class="adv-field">
+          <label>제외할 Provider</label>
+          <p class="adv-field-desc">선택한 provider는 라우팅 후보에서 완전히 제외됩니다.</p>
+          <div class="adv-chip-builder">
+            <div id="providerIgnoreChips" class="adv-chip-list"></div>
+            <select id="providerIgnoreAdd" class="adv-input">
+              <option value="">+ 제외할 Provider 추가...</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="adv-field">
+          <label>허용 양자화 (quantizations)</label>
+          <p class="adv-field-desc">선택한 정밀도의 모델만 사용합니다. FP32에 가까울수록 정확하지만 느리고 비쌀 수 있고, INT4에 가까울수록 빠르고 저렴하지만 품질이 낮아질 수 있습니다. 아무것도 선택하지 않으면 전체 허용됩니다.</p>
+          <div id="quantOptions" class="adv-checkbox-grid"></div>
+        </div>
+      </section>
+
+      <!-- 모델 폴백 -->
+      <section id="advSectionFallback" class="adv-section-card">
+        <h3 class="adv-card-title">모델 폴백</h3>
+        <p class="adv-card-desc">기본으로 선택한 모델이 응답할 수 없을 때(장애, 과부하 등) 순서대로 시도할 대체 모델을 지정합니다.</p>
+        <div class="adv-field">
+          <label>폴백 모델 검색 및 추가</label>
+          <p class="adv-field-desc">이름이나 ID로 검색한 뒤 클릭하면 목록에 추가됩니다. 추가된 순서대로 시도합니다.</p>
+          <div class="adv-autocomplete-wrap">
+            <input id="fallbackModelSearch" type="text" class="adv-input" placeholder="모델 이름 또는 ID 검색... (예: gpt-4o-mini)" autocomplete="off" />
+            <div id="fallbackModelResults" class="adv-autocomplete-results hidden"></div>
+          </div>
+          <div id="fallbackModelChips" class="adv-chip-list" style="margin-top:0.6rem;"></div>
+        </div>
+      </section>
+
+      <!-- 요청 파라미터 -->
+      <section id="advSectionParams" class="adv-section-card">
+        <h3 class="adv-card-title">요청 파라미터</h3>
+        <p class="adv-card-desc">모델의 응답 스타일과 길이를 제어하는 세부 파라미터입니다. 각 항목의 스위치를 켜야 요청에 포함됩니다.</p>
+
+        <div class="adv-param-grid">
+          <div class="adv-field">
+            <label for="maxTokens">Max Tokens</label>
+            <p class="adv-field-desc">응답의 최대 토큰 수를 제한합니다. 비워두면 모델 기본값 사용.</p>
+            <input id="maxTokens" type="number" min="1" step="1" class="adv-input" placeholder="예: 1024" />
+          </div>
+          <div class="adv-field">
+            <label for="seedInput">Seed</label>
+            <p class="adv-field-desc">동일한 seed와 입력이면 재현성이 높아집니다 (지원 모델에 한함).</p>
+            <input id="seedInput" type="number" step="1" class="adv-input" placeholder="예: 42" />
+          </div>
+        </div>
+
+        <div class="adv-slider-field">
+          <div class="adv-slider-top-row">
+            <label class="adv-slider-toggle-label">
+              <span class="adv-switch"><input id="topPEnabled" type="checkbox" /><span class="adv-switch-track"></span></span>
+              <span>Top P</span>
+            </label>
+            <span id="topPValue" class="adv-slider-value">기본값</span>
+          </div>
+          <p class="adv-field-desc">확률 상위 P%의 토큰만 후보로 사용합니다. 낮을수록 보수적·일관적, 높을수록 다양한 답변 (기본값 1).</p>
+          <input id="topP" type="range" min="0" max="1" step="0.01" value="1" class="adv-range" disabled />
+        </div>
+
+        <div class="adv-slider-field">
+          <div class="adv-slider-top-row">
+            <label class="adv-slider-toggle-label">
+              <span class="adv-switch"><input id="topKEnabled" type="checkbox" /><span class="adv-switch-track"></span></span>
+              <span>Top K</span>
+            </label>
+            <span id="topKValue" class="adv-slider-value">기본값</span>
+          </div>
+          <p class="adv-field-desc">확률 상위 K개의 토큰만 후보로 사용합니다 (일부 모델만 지원, 기본값 0=제한 없음).</p>
+          <input id="topK" type="range" min="0" max="100" step="1" value="0" class="adv-range" disabled />
+        </div>
+
+        <div class="adv-slider-field">
+          <div class="adv-slider-top-row">
+            <label class="adv-slider-toggle-label">
+              <span class="adv-switch"><input id="freqPenaltyEnabled" type="checkbox" /><span class="adv-switch-track"></span></span>
+              <span>Frequency Penalty</span>
+            </label>
+            <span id="freqPenaltyValue" class="adv-slider-value">기본값</span>
+          </div>
+          <p class="adv-field-desc">이미 등장한 단어의 반복 사용을 억제합니다. 값이 클수록 같은 단어 반복이 줄어듭니다 (기본값 0).</p>
+          <input id="freqPenalty" type="range" min="-2" max="2" step="0.01" value="0" class="adv-range" disabled />
+        </div>
+
+        <div class="adv-slider-field">
+          <div class="adv-slider-top-row">
+            <label class="adv-slider-toggle-label">
+              <span class="adv-switch"><input id="presPenaltyEnabled" type="checkbox" /><span class="adv-switch-track"></span></span>
+              <span>Presence Penalty</span>
+            </label>
+            <span id="presPenaltyValue" class="adv-slider-value">기본값</span>
+          </div>
+          <p class="adv-field-desc">새로운 주제·단어 사용을 장려합니다. 값이 클수록 더 다양한 주제를 시도합니다 (기본값 0).</p>
+          <input id="presPenalty" type="range" min="-2" max="2" step="0.01" value="0" class="adv-range" disabled />
+        </div>
+
+        <div class="adv-slider-field">
+          <div class="adv-slider-top-row">
+            <label class="adv-slider-toggle-label">
+              <span class="adv-switch"><input id="repPenaltyEnabled" type="checkbox" /><span class="adv-switch-track"></span></span>
+              <span>Repetition Penalty</span>
+            </label>
+            <span id="repPenaltyValue" class="adv-slider-value">기본값</span>
+          </div>
+          <p class="adv-field-desc">반복되는 문구 자체에 불이익을 줍니다. 1보다 크면 반복 억제, 작으면 완화됩니다 (기본값 1).</p>
+          <input id="repPenalty" type="range" min="0" max="2" step="0.01" value="1" class="adv-range" disabled />
+        </div>
+      </section>
+
+      <!-- 응답 형식 -->
+      <section id="advSectionResponse" class="adv-section-card">
+        <h3 class="adv-card-title">응답 형식 및 컨텍스트</h3>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="jsonMode">JSON 응답 강제</label>
+            <p class="adv-field-desc">모델이 순수 JSON 객체 형태로만 응답하도록 강제합니다 (response_format: json_object). 지원 모델에서만 동작합니다.</p>
+          </div>
+          <label class="adv-switch"><input id="jsonMode" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="middleOut">Middle-out 압축</label>
+            <p class="adv-field-desc">입력이 모델의 컨텍스트 길이를 초과할 때, 중간 부분을 압축해 자동으로 맞춰줍니다.</p>
+          </div>
+          <label class="adv-switch"><input id="middleOut" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div id="advPreviewPanel" class="adv-preview-panel">
+    <div class="adv-preview-header">
+      <h3 id="apiPreviewTitle" class="adv-preview-title">API 호출 미리보기</h3>
+      <button id="copyPreviewBtn" type="button" class="adv-preview-copy">복사</button>
+    </div>
+    <pre id="apiPreviewCode" class="adv-preview-code"></pre>
+  </div>
+
+  <div class="adv-modal-footer">
+    <button id="togglePreviewBtn" type="button" class="adv-reset-btn">API 호출 코드 보기</button>
+    <div class="adv-modal-footer-right">
+      <button id="resetAdvancedBtn" type="button" class="adv-reset-btn">기본값으로 초기화</button>
+      <button id="closeAdvancedModalBtn" type="button" class="adv-save-btn">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- API 호출 코드 전용 모달 (메인 화면에서 진입) -->
+<div id="apiPreviewModalOverlay" class="api-modal-overlay"></div>
+<div id="apiPreviewModal" class="api-modal" role="dialog" aria-modal="true" aria-labelledby="apiPreviewModalHeading">
+  <div class="api-modal-card">
+    <div class="api-modal-header">
+      <div>
+        <h2 id="apiPreviewModalHeading" class="api-modal-title">API 호출 코드</h2>
+        <p id="apiPreviewModalSubtitle" class="api-modal-subtitle">API 호출 미리보기</p>
+      </div>
+      <div class="api-modal-actions">
+        <button id="runPreviewBtn" type="button" class="adv-preview-copy">실행</button>
+        <button id="copyPreviewModalBtn" type="button" class="adv-preview-copy">복사</button>
+        <button id="closeApiPreviewModal" type="button" class="api-modal-close" aria-label="닫기">&times;</button>
+      </div>
+    </div>
+    <div class="api-modal-body">
+      <div class="api-modal-section">
+        <p class="api-modal-section-label">요청</p>
+        <pre id="apiPreviewModalCode" class="api-modal-code"></pre>
+      </div>
+      <div id="apiPreviewModalResponseWrap" class="api-modal-section hidden">
+        <p class="api-modal-section-label">응답 <span id="apiPreviewModalStatus" class="api-modal-status"></span></p>
+        <pre id="apiPreviewModalResponse" class="api-modal-code"></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  const STORAGE_KEYS = {
+    apiKey: 'or_chat_api_key',
+    model: 'or_chat_model',
+    system: 'or_chat_system',
+    temp: 'or_chat_temp',
+    stream: 'or_chat_stream',
+    history: 'or_chat_history',
+    freeOnly: 'or_chat_free_only',
+    advanced: 'or_chat_advanced_v2',
+  };
+
+  const QUANT_OPTIONS = [
+    { value: 'fp32', label: 'FP32', desc: '최고 정밀도' },
+    { value: 'fp16', label: 'FP16', desc: '표준 정밀도' },
+    { value: 'bf16', label: 'BF16', desc: '표준 정밀도' },
+    { value: 'fp8', label: 'FP8', desc: '경량화' },
+    { value: 'fp6', label: 'FP6', desc: '경량화' },
+    { value: 'fp4', label: 'FP4', desc: '초경량' },
+    { value: 'int8', label: 'INT8', desc: '양자화' },
+    { value: 'int4', label: 'INT4', desc: '초양자화' },
+    { value: 'unknown', label: '알 수 없음', desc: '정보 없음' },
+  ];
+
+  const FALLBACK_PROVIDERS = [
+    { slug: 'openai', name: 'OpenAI' },
+    { slug: 'anthropic', name: 'Anthropic' },
+    { slug: 'google-ai-studio', name: 'Google AI Studio' },
+    { slug: 'google-vertex', name: 'Google Vertex' },
+    { slug: 'amazon-bedrock', name: 'Amazon Bedrock' },
+    { slug: 'azure', name: 'Azure' },
+    { slug: 'mistral', name: 'Mistral' },
+    { slug: 'cohere', name: 'Cohere' },
+    { slug: 'together', name: 'Together' },
+    { slug: 'fireworks', name: 'Fireworks' },
+    { slug: 'deepinfra', name: 'DeepInfra' },
+    { slug: 'groq', name: 'Groq' },
+    { slug: 'perplexity', name: 'Perplexity' },
+    { slug: 'deepseek', name: 'DeepSeek' },
+    { slug: 'xai', name: 'xAI' },
+    { slug: 'meta-llama', name: 'Meta' },
+    { slug: 'cerebras', name: 'Cerebras' },
+  ];
+
+  const SLIDER_IDS = ['topP', 'topK', 'freqPenalty', 'presPenalty', 'repPenalty'];
+  const SLIDER_DEFAULTS = { topP: 1, topK: 0, freqPenalty: 0, presPenalty: 0, repPenalty: 1 };
+
+  // 2026-09-10 기준 무료 모델 전체에 test API 호출(chat/completions, max_tokens 5)을 3회 재시도까지 해본 결과
+  // 매번 오류를 반환한 모델 목록. 일시적인 429 레이트리밋으로 실패한 모델은 제외하고, 채팅 완성 자체가
+  // 불가능한(에이전틱 하네스 전용, 오디오/음악 생성 전용 등) 모델만 포함했습니다. 목록은 수동으로 갱신해야 합니다.
+  const TESTED_ERROR_FREE_MODELS = [
+    'google/lyria-3-clip-preview',
+    'google/lyria-3-pro-preview',
+    'thinkingmachines/inkling-small:free',
+    'thinkingmachines/inkling:free',
+  ];
+
+  const els = {
+    apiKeyInput: document.getElementById('apiKeyInput'),
+    toggleKeyBtn: document.getElementById('toggleKeyBtn'),
+    modelSelect: document.getElementById('modelSelect'),
+    modelHint: document.getElementById('modelHint'),
+    refreshModelsBtn: document.getElementById('refreshModelsBtn'),
+    modelFilter: document.getElementById('modelFilter'),
+    freeOnlyToggle: document.getElementById('freeOnlyToggle'),
+    systemPrompt: document.getElementById('systemPrompt'),
+    tempSlider: document.getElementById('tempSlider'),
+    tempValue: document.getElementById('tempValue'),
+    streamToggle: document.getElementById('streamToggle'),
+    clearChatBtn: document.getElementById('clearChatBtn'),
+    chatArea: document.getElementById('chatArea'),
+    chatForm: document.getElementById('chatForm'),
+    messageInput: document.getElementById('messageInput'),
+    sendBtn: document.getElementById('sendBtn'),
+    statusBanner: document.getElementById('statusBanner'),
+    mobileSettingsBtn: document.getElementById('mobileSettingsBtn'),
+    mobileOverlay: document.getElementById('mobileOverlay'),
+    mobilePanel: document.getElementById('mobilePanel'),
+    closeMobilePanel: document.getElementById('closeMobilePanel'),
+    mobileSettingsMount: document.getElementById('mobileSettingsMount'),
+    mainApiPreviewBtn: document.getElementById('mainApiPreviewBtn'),
+    apiPreviewModalOverlay: document.getElementById('apiPreviewModalOverlay'),
+    apiPreviewModal: document.getElementById('apiPreviewModal'),
+    apiPreviewModalHeading: document.getElementById('apiPreviewModalHeading'),
+    apiPreviewModalSubtitle: document.getElementById('apiPreviewModalSubtitle'),
+    apiPreviewModalCode: document.getElementById('apiPreviewModalCode'),
+    copyPreviewModalBtn: document.getElementById('copyPreviewModalBtn'),
+    closeApiPreviewModal: document.getElementById('closeApiPreviewModal'),
+    runPreviewBtn: document.getElementById('runPreviewBtn'),
+    apiPreviewModalResponseWrap: document.getElementById('apiPreviewModalResponseWrap'),
+    apiPreviewModalStatus: document.getElementById('apiPreviewModalStatus'),
+    apiPreviewModalResponse: document.getElementById('apiPreviewModalResponse'),
+
+    // 고급 설정 진입/모달
+    openAdvancedBtn: document.getElementById('openAdvancedBtn'),
+    advancedSummary: document.getElementById('advancedSummary'),
+    advancedModalOverlay: document.getElementById('advancedModalOverlay'),
+    advancedModal: document.getElementById('advancedModal'),
+    closeAdvancedModal: document.getElementById('closeAdvancedModal'),
+    closeAdvancedModalBtn: document.getElementById('closeAdvancedModalBtn'),
+    resetAdvancedBtn: document.getElementById('resetAdvancedBtn'),
+    advPreviewPanel: document.getElementById('advPreviewPanel'),
+    togglePreviewBtn: document.getElementById('togglePreviewBtn'),
+    apiPreviewTitle: document.getElementById('apiPreviewTitle'),
+    apiPreviewCode: document.getElementById('apiPreviewCode'),
+    copyPreviewBtn: document.getElementById('copyPreviewBtn'),
+    includeTestErrorModels: document.getElementById('includeTestErrorModels'),
+
+    // Provider 라우팅
+    advModelSelect: document.getElementById('advModelSelect'),
+    providerScopeHint: document.getElementById('providerScopeHint'),
+    providerOrderChips: document.getElementById('providerOrderChips'),
+    providerOrderAdd: document.getElementById('providerOrderAdd'),
+    providerIgnoreChips: document.getElementById('providerIgnoreChips'),
+    providerIgnoreAdd: document.getElementById('providerIgnoreAdd'),
+    providerSortOptions: document.getElementById('providerSortOptions'),
+    dataCollectionOptions: document.getElementById('dataCollectionOptions'),
+    allowFallbacks: document.getElementById('allowFallbacks'),
+    requireParameters: document.getElementById('requireParameters'),
+    quantOptions: document.getElementById('quantOptions'),
+
+    // 모델 폴백
+    fallbackModelSearch: document.getElementById('fallbackModelSearch'),
+    fallbackModelResults: document.getElementById('fallbackModelResults'),
+    fallbackModelChips: document.getElementById('fallbackModelChips'),
+
+    // 요청 파라미터
+    maxTokens: document.getElementById('maxTokens'),
+    seedInput: document.getElementById('seedInput'),
+    topPEnabled: document.getElementById('topPEnabled'),
+    topP: document.getElementById('topP'),
+    topPValue: document.getElementById('topPValue'),
+    topKEnabled: document.getElementById('topKEnabled'),
+    topK: document.getElementById('topK'),
+    topKValue: document.getElementById('topKValue'),
+    freqPenaltyEnabled: document.getElementById('freqPenaltyEnabled'),
+    freqPenalty: document.getElementById('freqPenalty'),
+    freqPenaltyValue: document.getElementById('freqPenaltyValue'),
+    presPenaltyEnabled: document.getElementById('presPenaltyEnabled'),
+    presPenalty: document.getElementById('presPenalty'),
+    presPenaltyValue: document.getElementById('presPenaltyValue'),
+    repPenaltyEnabled: document.getElementById('repPenaltyEnabled'),
+    repPenalty: document.getElementById('repPenalty'),
+    repPenaltyValue: document.getElementById('repPenaltyValue'),
+
+    // 응답 형식
+    jsonMode: document.getElementById('jsonMode'),
+    middleOut: document.getElementById('middleOut'),
+  };
+
+  let allModels = [];
+  let allProviders = [];
+  let messages = []; // {role, content}
+  let isSending = false;
+  let previewMessageIndex = null; // API 호출 코드 미리보기 범위. null이면 전체(최근) 대화 기준
+
+  function getPreviewMessages() {
+    if (previewMessageIndex === null || previewMessageIndex < 0) return messages;
+    return messages.slice(0, previewMessageIndex + 1);
+  }
+
+  // 고급 설정 상태 (배열/문자열 형태 라우팅 값)
+  let advProviderOrder = [];
+  let advProviderIgnore = [];
+  let advProviderQuant = [];
+  let advFallbackModels = [];
+  let advProviderSort = '';
+  let advDataCollection = '';
+  let updateSortActive = function () {};
+  let updateDataCollectionActive = function () {};
+  const sliderRefs = {};
+  let modelProviders = null; // 선택된 모델을 지원하는 provider 목록 (null이면 전체 provider 사용)
+  let modelProviderRequestToken = 0;
+
+  // ---------- 유틸 ----------
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  // 아주 단순한 마크다운 렌더링 (코드블록 / 인라인코드 / 줄바꿈)
+  function renderMarkdown(text) {
+    const escaped = escapeHtml(text);
+    const withCodeBlocks = escaped.replace(/```([\s\S]*?)```/g, function (_, code) {
+      return '<pre><code>' + code.replace(/^\w*\n/, '') + '</code></pre>';
+    });
+    const withInlineCode = withCodeBlocks.replace(/`([^`]+)`/g, '<code>$1</code>');
+    const withBreaks = withInlineCode.split(/\n{2,}/).map(function (para) {
+      return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
+    }).join('');
+    return withBreaks;
+  }
+
+  function showStatus(message, type) {
+    els.statusBanner.textContent = message;
+    els.statusBanner.className = 'px-4 py-2 text-sm text-center border-b ' +
+      (type === 'error'
+        ? 'bg-red-50 text-red-700 border-red-200'
+        : type === 'success'
+        ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+        : 'bg-amber-50 text-amber-700 border-amber-200');
+    els.statusBanner.classList.remove('hidden');
+  }
+
+  function hideStatus() {
+    els.statusBanner.classList.add('hidden');
+  }
+
+  function scrollToBottom() {
+    els.chatArea.scrollTop = els.chatArea.scrollHeight;
+  }
+
+  function parseNum(str) {
+    if (str === undefined || str === null || String(str).trim() === '') return undefined;
+    const n = Number(str);
+    return Number.isNaN(n) ? undefined : n;
+  }
+
+  // ---------- 저장/복원 ----------
+  function loadSettings() {
+    const savedKey = localStorage.getItem(STORAGE_KEYS.apiKey);
+    if (savedKey) els.apiKeyInput.value = savedKey;
+
+    const savedSystem = localStorage.getItem(STORAGE_KEYS.system);
+    if (savedSystem) els.systemPrompt.value = savedSystem;
+
+    const savedTemp = localStorage.getItem(STORAGE_KEYS.temp);
+    if (savedTemp) {
+      els.tempSlider.value = savedTemp;
+      els.tempValue.textContent = savedTemp;
+    }
+
+    const savedStream = localStorage.getItem(STORAGE_KEYS.stream);
+    if (savedStream !== null) els.streamToggle.checked = savedStream === 'true';
+
+    const savedFreeOnly = localStorage.getItem(STORAGE_KEYS.freeOnly);
+    if (savedFreeOnly !== null) els.freeOnlyToggle.checked = savedFreeOnly === 'true';
+
+    const savedHistory = localStorage.getItem(STORAGE_KEYS.history);
+    if (savedHistory) {
+      try {
+        messages = JSON.parse(savedHistory);
+        renderAllMessages();
+      } catch (e) { /* ignore */ }
+    }
+
+    loadAdvancedSettings();
+  }
+
+  function persistApiKey() {
+    localStorage.setItem(STORAGE_KEYS.apiKey, els.apiKeyInput.value.trim());
+    renderApiPreview();
+  }
+  function persistSystem() {
+    localStorage.setItem(STORAGE_KEYS.system, els.systemPrompt.value);
+    renderApiPreview();
+  }
+  function persistTemp() {
+    localStorage.setItem(STORAGE_KEYS.temp, els.tempSlider.value);
+    renderApiPreview();
+  }
+  function persistStream() {
+    localStorage.setItem(STORAGE_KEYS.stream, String(els.streamToggle.checked));
+    renderApiPreview();
+  }
+  function persistFreeOnly() {
+    localStorage.setItem(STORAGE_KEYS.freeOnly, String(els.freeOnlyToggle.checked));
+  }
+  function persistModel() {
+    if (els.modelSelect.value) localStorage.setItem(STORAGE_KEYS.model, els.modelSelect.value);
+    renderApiPreview();
+  }
+  function persistHistory() {
+    localStorage.setItem(STORAGE_KEYS.history, JSON.stringify(messages));
+  }
+
+  // ================= 고급 설정 (Provider / 라우팅) =================
+
+  function currentProviderSource() {
+    if (modelProviders && modelProviders.length > 0) return modelProviders;
+    return allProviders.length > 0 ? allProviders : FALLBACK_PROVIDERS;
+  }
+
+  function providerLabel(slug) {
+    const sources = [modelProviders, allProviders, FALLBACK_PROVIDERS];
+    for (let i = 0; i < sources.length; i++) {
+      const src = sources[i];
+      if (!src) continue;
+      const p = src.find(function (x) { return x.slug === slug; });
+      if (p) return p.name;
+    }
+    return slug;
+  }
+  function modelLabel(id) {
+    const m = allModels.find(function (x) { return x.id === id; });
+    return m ? (m.name || m.id) : id;
+  }
+
+  function renderChips(container, arr, showOrder, onRemove, labelFn) {
+    container.innerHTML = '';
+    if (!arr || arr.length === 0) {
+      container.innerHTML = '<span class="adv-chip-empty">선택 안 함</span>';
+      return;
+    }
+    arr.forEach(function (val, idx) {
+      const chip = document.createElement('span');
+      chip.className = 'adv-chip';
+      let inner = '';
+      if (showOrder) inner += '<span class="adv-chip-order">' + (idx + 1) + '</span>';
+      inner += '<span>' + escapeHtml(labelFn(val)) + '</span>';
+      chip.innerHTML = inner;
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'adv-chip-remove';
+      rm.setAttribute('aria-label', '제거');
+      rm.textContent = '×';
+      rm.addEventListener('click', function () { onRemove(val); });
+      chip.appendChild(rm);
+      container.appendChild(chip);
+    });
+  }
+
+  function renderProviderChips() {
+    renderChips(els.providerOrderChips, advProviderOrder, true, function (slug) {
+      advProviderOrder = advProviderOrder.filter(function (s) { return s !== slug; });
+      renderProviderChips();
+      populateProviderSelects();
+      persistAdvanced();
+      updateAdvancedSummary();
+    }, providerLabel);
+
+    renderChips(els.providerIgnoreChips, advProviderIgnore, false, function (slug) {
+      advProviderIgnore = advProviderIgnore.filter(function (s) { return s !== slug; });
+      renderProviderChips();
+      populateProviderSelects();
+      persistAdvanced();
+      updateAdvancedSummary();
+    }, providerLabel);
+  }
+
+  function renderFallbackChips() {
+    renderChips(els.fallbackModelChips, advFallbackModels, true, function (id) {
+      advFallbackModels = advFallbackModels.filter(function (x) { return x !== id; });
+      renderFallbackChips();
+      persistAdvanced();
+      updateAdvancedSummary();
+    }, modelLabel);
+  }
+
+  function fillProviderSelect(selectEl, excludeArr, placeholderText) {
+    selectEl.innerHTML = '';
+    const placeholder = document.createElement('option');
+    placeholder.value = '';
+    placeholder.textContent = placeholderText;
+    selectEl.appendChild(placeholder);
+    currentProviderSource().filter(function (p) { return excludeArr.indexOf(p.slug) === -1; })
+      .sort(function (a, b) { return a.name.localeCompare(b.name); })
+      .forEach(function (p) {
+        const opt = document.createElement('option');
+        opt.value = p.slug;
+        opt.textContent = p.name;
+        selectEl.appendChild(opt);
+      });
+  }
+
+  function populateProviderSelects() {
+    fillProviderSelect(els.providerOrderAdd, advProviderOrder, '+ Provider 추가...');
+    fillProviderSelect(els.providerIgnoreAdd, advProviderIgnore, '+ 제외할 Provider 추가...');
+  }
+
+  function renderQuantOptions() {
+    els.quantOptions.innerHTML = '';
+    QUANT_OPTIONS.forEach(function (q) {
+      const checked = advProviderQuant.indexOf(q.value) !== -1;
+      const label = document.createElement('label');
+      label.className = 'adv-checkbox-item' + (checked ? ' checked' : '');
+      label.innerHTML =
+        '<input type="checkbox" value="' + q.value + '"' + (checked ? ' checked' : '') + ' />' +
+        '<span class="adv-checkbox-text">' +
+        '<span class="adv-checkbox-label">' + q.label + '</span>' +
+        '<span class="adv-checkbox-desc">' + q.desc + '</span>' +
+        '</span>';
+      const input = label.querySelector('input');
+      input.addEventListener('change', function () {
+        if (input.checked) {
+          if (advProviderQuant.indexOf(q.value) === -1) advProviderQuant.push(q.value);
+        } else {
+          advProviderQuant = advProviderQuant.filter(function (v) { return v !== q.value; });
+        }
+        label.classList.toggle('checked', input.checked);
+        persistAdvanced();
+        updateAdvancedSummary();
+      });
+      els.quantOptions.appendChild(label);
+    });
+  }
+
+  function setupChoiceGroup(containerEl, onChange) {
+    const buttons = containerEl.querySelectorAll('.adv-choice');
+    function updateActive(val) {
+      buttons.forEach(function (b) { b.classList.toggle('active', b.dataset.value === val); });
+    }
+    buttons.forEach(function (b) {
+      b.addEventListener('click', function () {
+        onChange(b.dataset.value);
+        updateActive(b.dataset.value);
+      });
+    });
+    return updateActive;
+  }
+
+  function renderFallbackResults(matches) {
+    const container = els.fallbackModelResults;
+    container.innerHTML = '';
+    if (matches.length === 0) {
+      container.innerHTML = '<div class="adv-autocomplete-empty">일치하는 모델 없음</div>';
+    } else {
+      matches.forEach(function (m) {
+        const item = document.createElement('div');
+        item.className = 'adv-autocomplete-item';
+        item.innerHTML = '<span>' + escapeHtml(m.name || m.id) + '</span><span>' + escapeHtml(m.pricingLabel || '') + '</span>';
+        item.addEventListener('mousedown', function (e) {
+          e.preventDefault();
+          advFallbackModels.push(m.id);
+          els.fallbackModelSearch.value = '';
+          container.classList.add('hidden');
+          container.innerHTML = '';
+          renderFallbackChips();
+          persistAdvanced();
+          updateAdvancedSummary();
+        });
+        container.appendChild(item);
+      });
+    }
+    container.classList.remove('hidden');
+  }
+
+  function setupSlider(id) {
+    const enabledEl = els[id + 'Enabled'];
+    const rangeEl = els[id];
+    const valueEl = els[id + 'Value'];
+    function refresh() {
+      rangeEl.disabled = !enabledEl.checked;
+      valueEl.textContent = enabledEl.checked ? rangeEl.value : '기본값';
+    }
+    enabledEl.addEventListener('change', function () { refresh(); persistAdvanced(); updateAdvancedSummary(); });
+    rangeEl.addEventListener('input', function () { valueEl.textContent = rangeEl.value; persistAdvanced(); updateAdvancedSummary(); });
+    refresh();
+    sliderRefs[id] = { enabledEl: enabledEl, rangeEl: rangeEl, valueEl: valueEl, refresh: refresh };
+  }
+
+  function isAdvancedActive() {
+    if (els.systemPrompt.value.trim() !== '') return true;
+    if (parseFloat(els.tempSlider.value) !== 0.7) return true;
+    if (els.includeTestErrorModels.checked) return true;
+    if (advProviderOrder.length > 0 || advProviderIgnore.length > 0 || advProviderQuant.length > 0 || advFallbackModels.length > 0) return true;
+    if (advProviderSort || advDataCollection) return true;
+    if (!els.allowFallbacks.checked || els.requireParameters.checked) return true;
+    if (els.maxTokens.value !== '' || els.seedInput.value !== '') return true;
+    if (els.jsonMode.checked || els.middleOut.checked) return true;
+    return SLIDER_IDS.some(function (id) { return els[id + 'Enabled'].checked; });
+  }
+
+  function updateAdvancedSummary() {
+    els.advancedSummary.textContent = isAdvancedActive() ? '사용자 설정 적용 중' : '기본값 사용 중';
+  }
+
+  function collectAdvancedSettings() {
+    const sliders = {};
+    SLIDER_IDS.forEach(function (id) {
+      sliders[id] = { enabled: els[id + 'Enabled'].checked, value: els[id].value };
+    });
+    return {
+      providerOrder: advProviderOrder,
+      providerIgnore: advProviderIgnore,
+      providerQuant: advProviderQuant,
+      fallbackModels: advFallbackModels,
+      providerSort: advProviderSort,
+      dataCollection: advDataCollection,
+      allowFallbacks: els.allowFallbacks.checked,
+      requireParameters: els.requireParameters.checked,
+      maxTokens: els.maxTokens.value,
+      seed: els.seedInput.value,
+      jsonMode: els.jsonMode.checked,
+      middleOut: els.middleOut.checked,
+      includeTestErrorModels: els.includeTestErrorModels.checked,
+      sliders: sliders,
+    };
+  }
+
+  function persistAdvanced() {
+    localStorage.setItem(STORAGE_KEYS.advanced, JSON.stringify(collectAdvancedSettings()));
+    renderApiPreview();
+  }
+
+  function loadAdvancedSettings() {
+    const saved = localStorage.getItem(STORAGE_KEYS.advanced);
+    if (!saved) return;
+    try {
+      const p = JSON.parse(saved);
+      if (Array.isArray(p.providerOrder)) advProviderOrder = p.providerOrder;
+      if (Array.isArray(p.providerIgnore)) advProviderIgnore = p.providerIgnore;
+      if (Array.isArray(p.providerQuant)) advProviderQuant = p.providerQuant;
+      if (Array.isArray(p.fallbackModels)) advFallbackModels = p.fallbackModels;
+      if (typeof p.providerSort === 'string') advProviderSort = p.providerSort;
+      if (typeof p.dataCollection === 'string') advDataCollection = p.dataCollection;
+      if (p.allowFallbacks !== undefined) els.allowFallbacks.checked = !!p.allowFallbacks;
+      if (p.requireParameters !== undefined) els.requireParameters.checked = !!p.requireParameters;
+      if (p.maxTokens !== undefined) els.maxTokens.value = p.maxTokens;
+      if (p.seed !== undefined) els.seedInput.value = p.seed;
+      if (p.jsonMode !== undefined) els.jsonMode.checked = !!p.jsonMode;
+      if (p.middleOut !== undefined) els.middleOut.checked = !!p.middleOut;
+      if (p.includeTestErrorModels !== undefined) els.includeTestErrorModels.checked = !!p.includeTestErrorModels;
+      if (p.sliders) {
+        SLIDER_IDS.forEach(function (id) {
+          if (!p.sliders[id]) return;
+          els[id + 'Enabled'].checked = !!p.sliders[id].enabled;
+          if (p.sliders[id].value !== undefined) els[id].value = p.sliders[id].value;
+        });
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function resetAdvancedSettings() {
+    els.systemPrompt.value = '';
+    els.tempSlider.value = 0.7;
+    els.tempValue.textContent = '0.7';
+    persistSystem();
+    persistTemp();
+
+    advProviderOrder = [];
+    advProviderIgnore = [];
+    advProviderQuant = [];
+    advFallbackModels = [];
+    advProviderSort = '';
+    advDataCollection = '';
+    els.allowFallbacks.checked = true;
+    els.requireParameters.checked = false;
+    els.maxTokens.value = '';
+    els.seedInput.value = '';
+    els.jsonMode.checked = false;
+    els.middleOut.checked = false;
+    els.includeTestErrorModels.checked = false;
+    els.fallbackModelSearch.value = '';
+    els.fallbackModelResults.classList.add('hidden');
+    els.fallbackModelResults.innerHTML = '';
+
+    SLIDER_IDS.forEach(function (id) {
+      els[id + 'Enabled'].checked = false;
+      els[id].value = SLIDER_DEFAULTS[id];
+      if (sliderRefs[id]) sliderRefs[id].refresh();
+    });
+
+    renderQuantOptions();
+    renderProviderChips();
+    populateProviderSelects();
+    renderFallbackChips();
+    updateSortActive('');
+    updateDataCollectionActive('');
+    populateModelSelect(allModels, els.modelFilter.value);
+    populateAdvModelSelect();
+    persistAdvanced();
+    updateAdvancedSummary();
+  }
+
+  function openAdvancedModal() {
+    els.advancedModalOverlay.classList.add('open');
+    els.advancedModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    els.advPreviewPanel.classList.remove('open');
+    els.togglePreviewBtn.textContent = 'API 호출 코드 보기';
+  }
+  function togglePreviewPanel() {
+    const isOpen = els.advPreviewPanel.classList.toggle('open');
+    els.togglePreviewBtn.textContent = isOpen ? 'API 호출 코드 숨기기' : 'API 호출 코드 보기';
+    if (isOpen) renderApiPreview();
+  }
+  function closeAdvancedModal() {
+    els.advancedModalOverlay.classList.remove('open');
+    els.advancedModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // 메인 화면 전용 - 고급 설정과 무관하게 API 호출 코드만 보여주는 독립 모달
+  // upToIndex: 특정 메시지 시점까지의 대화만 보고 싶을 때 messages 배열의 인덱스를 전달 (미지정 시 전체/최근 대화 기준)
+  function openApiPreviewModal(upToIndex) {
+    previewMessageIndex = (typeof upToIndex === 'number') ? upToIndex : null;
+    els.apiPreviewModalHeading.textContent = 'API 호출 코드';
+    els.runPreviewBtn.classList.remove('hidden');
+    renderApiPreview();
+    els.apiPreviewModalResponseWrap.classList.add('hidden');
+    els.apiPreviewModalStatus.className = 'api-modal-status';
+    els.apiPreviewModalStatus.textContent = '';
+    els.apiPreviewModalResponse.textContent = '';
+    els.apiPreviewModalOverlay.classList.add('open');
+    els.apiPreviewModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // 챗봇 응답 버블 클릭 전용 - 그 응답을 만든 요청 코드와, 실제로 받았던 API 응답 결과를 그대로 보여준다.
+  // (다시 호출하지 않고, sendMessage/handleStreamingResponse에서 저장해둔 원본 응답을 사용)
+  function openApiResponseModal(index) {
+    previewMessageIndex = index - 1;
+    els.apiPreviewModalHeading.textContent = 'API 응답 결과';
+    els.runPreviewBtn.classList.add('hidden');
+    renderApiPreview();
+    els.apiPreviewModalStatus.className = 'api-modal-status';
+
+    const msg = messages[index];
+    els.apiPreviewModalResponseWrap.classList.remove('hidden');
+    if (msg && msg.rawResponse) {
+      setPreviewStatus('200 OK', 'ok');
+      const rr = msg.rawResponse;
+      const reasoning = rr.choices && rr.choices[0] && rr.choices[0].message ? rr.choices[0].message.reasoning : '';
+      const respText = JSON.stringify(rr, null, 2);
+      els.apiPreviewModalResponse.innerHTML = highlightGroupsInText(respText, [
+        { className: 'chat-highlight', values: [msg.content] },
+        { className: 'chat-highlight-green', values: [rr.model] },
+        { className: 'chat-highlight-blue', values: [reasoning] },
+      ]);
+    } else if (msg && msg.rawChunks && msg.rawChunks.length > 0) {
+      setPreviewStatus('200 OK · 스트리밍', 'ok');
+      const respText = JSON.stringify(msg.rawChunks, null, 2);
+      const fragments = msg.rawChunks.map(function (c) {
+        return c.choices && c.choices[0] && c.choices[0].delta ? c.choices[0].delta.content : '';
+      });
+      const reasoningFragments = msg.rawChunks.map(function (c) {
+        return c.choices && c.choices[0] && c.choices[0].delta ? c.choices[0].delta.reasoning : '';
+      });
+      const chunkModel = msg.rawChunks.length > 0 ? msg.rawChunks[0].model : '';
+      els.apiPreviewModalResponse.innerHTML = highlightGroupsInText(respText, [
+        { className: 'chat-highlight', values: fragments },
+        { className: 'chat-highlight-green', values: [chunkModel] },
+        { className: 'chat-highlight-blue', values: reasoningFragments },
+      ]);
+    } else {
+      setPreviewStatus('기록 없음', 'error');
+      els.apiPreviewModalResponse.textContent = '이 응답에 대한 원본 API 결과가 저장되어 있지 않습니다.';
+    }
+
+    els.apiPreviewModalOverlay.classList.add('open');
+    els.apiPreviewModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeApiPreviewModalFn() {
+    els.apiPreviewModalOverlay.classList.remove('open');
+    els.apiPreviewModal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  function setPreviewStatus(text, kind) {
+    els.apiPreviewModalStatus.className = 'api-modal-status' + (kind ? ' ' + kind : '');
+    els.apiPreviewModalStatus.textContent = text;
+  }
+
+  // "실행" 버튼: 미리보기 코드와 동일한 요청을 실제로 호출해 응답을 모달 안에 표시한다.
+  // 실제 채팅 내역(messages)에는 반영하지 않는 순수 미리보기/테스트 호출이다.
+  async function runApiPreviewCall() {
+    const apiKey = els.apiKeyInput.value.trim();
+    const model = els.modelSelect.value;
+
+    els.apiPreviewModalResponseWrap.classList.remove('hidden');
+    els.apiPreviewModalResponse.textContent = '';
+
+    if (!apiKey) {
+      setPreviewStatus('오류', 'error');
+      els.apiPreviewModalResponse.textContent = '먼저 왼쪽에서 OpenRouter API 키를 입력하세요.';
+      return;
+    }
+    if (!model) {
+      setPreviewStatus('오류', 'error');
+      els.apiPreviewModalResponse.textContent = '모델을 선택하세요.';
+      return;
+    }
+
+    const previewMsgs = getPreviewMessages();
+    const apiMessages = [];
+    const systemText = els.systemPrompt.value.trim();
+    if (systemText) apiMessages.push({ role: 'system', content: systemText });
+    if (previewMsgs.length > 0) {
+      previewMsgs.forEach(function (m) { apiMessages.push({ role: m.role, content: m.content }); });
+    } else {
+      apiMessages.push({ role: 'user', content: '안녕하세요' });
+    }
+
+    const temperature = parseFloat(els.tempSlider.value);
+    const useStream = els.streamToggle.checked;
+    const body = buildRequestBody(model, apiMessages, temperature, useStream);
+
+    setPreviewStatus('호출 중...', 'loading');
+    els.runPreviewBtn.disabled = true;
+    const originalLabel = els.runPreviewBtn.textContent;
+    els.runPreviewBtn.textContent = '호출 중...';
+
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': window.location.href,
+          'X-Title': 'OpenRouter Chatbot',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        let errMsg = 'HTTP ' + res.status;
+        try {
+          const parsed = JSON.parse(errBody);
+          if (parsed.error && parsed.error.message) errMsg = parsed.error.message;
+        } catch (e) { /* ignore */ }
+        setPreviewStatus('HTTP ' + res.status, 'error');
+        els.apiPreviewModalResponse.textContent = errMsg;
+        return;
+      }
+
+      if (useStream) {
+        setPreviewStatus('200 OK · 스트리밍 중...', 'loading');
+        await streamPreviewResponse(res);
+        setPreviewStatus('200 OK · 스트리밍', 'ok');
+      } else {
+        const data = await res.json();
+        setPreviewStatus('200 OK', 'ok');
+        const reply = data.choices && data.choices[0] && data.choices[0].message
+          ? data.choices[0].message.content : '';
+        const reasoning = data.choices && data.choices[0] && data.choices[0].message
+          ? data.choices[0].message.reasoning : '';
+        const respText = JSON.stringify(data, null, 2);
+        els.apiPreviewModalResponse.innerHTML = highlightGroupsInText(respText, [
+          { className: 'chat-highlight', values: [reply] },
+          { className: 'chat-highlight-green', values: [data.model] },
+          { className: 'chat-highlight-blue', values: [reasoning] },
+        ]);
+      }
+    } catch (err) {
+      setPreviewStatus('오류', 'error');
+      els.apiPreviewModalResponse.textContent = err.message;
+    } finally {
+      els.runPreviewBtn.disabled = false;
+      els.runPreviewBtn.textContent = originalLabel;
+    }
+  }
+
+  async function streamPreviewResponse(res) {
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let assistantText = '';
+    let buffer = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data:')) continue;
+        const payload = trimmed.slice(5).trim();
+        if (payload === '[DONE]') continue;
+        try {
+          const json = JSON.parse(payload);
+          const delta = json.choices && json.choices[0] && json.choices[0].delta
+            ? json.choices[0].delta.content : '';
+          if (delta) {
+            assistantText += delta;
+            els.apiPreviewModalResponse.textContent = assistantText;
+          }
+        } catch (e) {
+          // OpenRouter가 가끔 처리 중(comment) 라인을 보낼 수 있음 -> 무시
+        }
+      }
+    }
+    if (!assistantText) els.apiPreviewModalResponse.textContent = '(빈 응답)';
+  }
+
+  async function loadProviders() {
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/providers');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      allProviders = (data.data || []).map(function (p) {
+        return { slug: p.slug, name: p.name || p.slug };
+      }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+    } catch (err) {
+      allProviders = FALLBACK_PROVIDERS.slice();
+    }
+    populateProviderSelects();
+    renderProviderChips();
+  }
+
+  // 선택한 모델을 실제로 서빙하는 provider만 조회해서 라우팅 후보를 좁힌다
+  async function refreshProviderScopeForModel(modelId) {
+    const token = ++modelProviderRequestToken;
+    const slashIdx = modelId ? modelId.indexOf('/') : -1;
+
+    if (!modelId || slashIdx === -1) {
+      modelProviders = null;
+      els.providerScopeHint.textContent = '모델을 선택하면 해당 모델을 지원하는 provider만 아래 목록에 표시됩니다.';
+      populateProviderSelects();
+      return;
+    }
+
+    els.providerScopeHint.textContent = modelLabel(modelId) + ' 을(를) 지원하는 provider 조회 중...';
+    const author = modelId.slice(0, slashIdx);
+    const slug = modelId.slice(slashIdx + 1);
+
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/models/' + encodeURIComponent(author) + '/' + encodeURIComponent(slug) + '/endpoints');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      if (token !== modelProviderRequestToken) return; // 그 사이 다른 모델로 변경됨
+
+      const endpoints = (data.data && data.data.endpoints) || [];
+      const map = {};
+      endpoints.forEach(function (ep) {
+        if (ep.tag) map[ep.tag] = ep.provider_name || ep.tag;
+      });
+      modelProviders = Object.keys(map).map(function (slug2) {
+        return { slug: slug2, name: map[slug2] };
+      }).sort(function (a, b) { return a.name.localeCompare(b.name); });
+
+      els.providerScopeHint.textContent = modelProviders.length > 0
+        ? modelLabel(modelId) + ' 을(를) 지원하는 provider ' + modelProviders.length + '개'
+        : modelLabel(modelId) + ' 의 provider 정보가 없어 전체 목록을 표시합니다.';
+    } catch (err) {
+      if (token !== modelProviderRequestToken) return;
+      modelProviders = null;
+      els.providerScopeHint.textContent = 'provider 정보를 불러오지 못해 전체 목록을 표시합니다.';
+    }
+    populateProviderSelects();
+  }
+
+  function isTestErrorModel(modelId) {
+    return TESTED_ERROR_FREE_MODELS.indexOf(modelId) !== -1;
+  }
+
+  function populateAdvModelSelect() {
+    els.advModelSelect.innerHTML = '';
+    if (allModels.length === 0) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = '모델 목록 불러오는 중...';
+      els.advModelSelect.appendChild(opt);
+      return;
+    }
+    const includeErrorModels = els.includeTestErrorModels.checked;
+    allModels.filter(function (m) {
+      return includeErrorModels || !isTestErrorModel(m.id);
+    }).forEach(function (m) {
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      const priceTag = m.pricingLabel ? ' — ' + m.pricingLabel : '';
+      opt.textContent = (m.name || m.id) + priceTag;
+      els.advModelSelect.appendChild(opt);
+    });
+    els.advModelSelect.value = els.modelSelect.value;
+  }
+
+  // 고급 설정 모달에서 모델을 바꾸면 사이드바의 모델 선택(=실제 전송에 쓰이는 값)도 함께 바뀐다
+  function selectModelFromModal(modelId) {
+    if (!modelId) return;
+    const model = allModels.find(function (m) { return m.id === modelId; });
+    if (model && els.freeOnlyToggle.checked && model.pricingLabel !== 'free') {
+      els.freeOnlyToggle.checked = false;
+      persistFreeOnly();
+    }
+    els.modelFilter.value = '';
+    populateModelSelect(allModels, '');
+    els.modelSelect.value = modelId;
+    persistModel();
+    refreshProviderScopeForModel(modelId);
+  }
+
+  function buildRequestBody(model, apiMessages, temperature, useStream) {
+    const body = { model: model, messages: apiMessages, temperature: temperature, stream: useStream };
+
+    const provider = {};
+    if (advProviderOrder.length > 0) provider.order = advProviderOrder.slice();
+    if (advProviderIgnore.length > 0) provider.ignore = advProviderIgnore.slice();
+    if (advProviderQuant.length > 0) provider.quantizations = advProviderQuant.slice();
+    if (advProviderSort) provider.sort = advProviderSort;
+    if (advDataCollection) provider.data_collection = advDataCollection;
+    if (!els.allowFallbacks.checked) provider.allow_fallbacks = false;
+    if (els.requireParameters.checked) provider.require_parameters = true;
+    if (Object.keys(provider).length > 0) body.provider = provider;
+
+    if (advFallbackModels.length > 0) body.models = [model].concat(advFallbackModels);
+
+    const maxTokens = parseNum(els.maxTokens.value);
+    if (maxTokens !== undefined) body.max_tokens = maxTokens;
+    const seed = parseNum(els.seedInput.value);
+    if (seed !== undefined) body.seed = seed;
+
+    if (els.topPEnabled.checked) body.top_p = Number(els.topP.value);
+    if (els.topKEnabled.checked) body.top_k = Number(els.topK.value);
+    if (els.freqPenaltyEnabled.checked) body.frequency_penalty = Number(els.freqPenalty.value);
+    if (els.presPenaltyEnabled.checked) body.presence_penalty = Number(els.presPenalty.value);
+    if (els.repPenaltyEnabled.checked) body.repetition_penalty = Number(els.repPenalty.value);
+
+    if (els.jsonMode.checked) body.response_format = { type: 'json_object' };
+    if (els.middleOut.checked) body.transforms = ['middle-out'];
+
+    return body;
+  }
+
+  function maskApiKey(key) {
+    if (key.length <= 12) return key.charAt(0) + '***';
+    return key.slice(0, 10) + '...' + key.slice(-4);
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // rawText(요청 코드 / 응답 JSON 등 순수 텍스트) 안에서 지정한 값들을 찾아 <mark>로 감싸
+  // 눈에 띄게 만든다. groups: [{ className, values, mode }] 형태의 배열.
+  //   - mode 'json'(기본): JSON.stringify(value)가 만드는 이스케이프/따옴표 형태 그대로 찾는다
+  //     (JSON 문자열 값인 채팅 텍스트, model 등에 사용).
+  //   - mode 'raw': value를 있는 그대로(따옴표 없이) 찾는다 (fetch 코드에 그대로 이어붙인
+  //     Authorization 헤더의 API 키 등에 사용).
+  // 값이 길수록 먼저 고유 토큰으로 치환한 뒤 HTML 이스케이프하고 마지막에 토큰을 해당 색상의
+  // <mark>로 되돌린다 (짧은 값이 이미 치환된 영역 안에서 다시 매칭되는 것을 방지).
+  function highlightGroupsInText(rawText, groups) {
+    const entries = [];
+    (groups || []).forEach(function (g) {
+      (g.values || []).forEach(function (item) {
+        const isObj = item && typeof item === 'object';
+        const value = isObj ? item.value : item;
+        const mode = (isObj && item.mode) || g.mode || 'json';
+        if (value) entries.push({ value: value, mode: mode, className: g.className });
+      });
+    });
+    entries.sort(function (a, b) { return b.value.length - a.value.length; });
+
+    const seen = new Set();
+    const tokens = [];
+    let text = rawText;
+    entries.forEach(function (e) {
+      const key = e.className + '' + e.mode + '' + e.value;
+      if (seen.has(key)) return;
+      seen.add(key);
+      const needle = e.mode === 'raw' ? e.value : JSON.stringify(e.value);
+      if (!needle || text.indexOf(needle) === -1) return;
+      const token = ' HL' + tokens.length + ' ';
+      text = text.split(needle).join(token);
+      tokens.push({ needle: needle, className: e.className });
+    });
+
+    let html = escapeHtml(text);
+    tokens.forEach(function (t, i) {
+      const token = ' HL' + i + ' ';
+      html = html.split(token).join('<mark class="' + t.className + '">' + escapeHtml(t.needle) + '</mark>');
+    });
+    return html;
+  }
+
+  // 현재 사이드바 + 고급 설정 값으로 실제 전송될 fetch() 호출 코드를 미리보기로 렌더링
+  // (기본은 최근 입력 대화 기준. 메시지를 클릭해 열었다면 그 시점까지의 대화 기준으로 범위가 좁혀짐.
+  //  대화가 없으면 "안녕하세요" 한 마디를 기준으로 표시)
+  function renderApiPreview() {
+    if (!els.apiPreviewCode) return;
+    const model = els.modelSelect.value || '<모델을 선택하세요>';
+    const previewMsgs = getPreviewMessages();
+    const apiMessages = [];
+    const systemText = els.systemPrompt.value.trim();
+    if (systemText) apiMessages.push({ role: 'system', content: systemText });
+    if (previewMsgs.length > 0) {
+      previewMsgs.forEach(function (m) { apiMessages.push({ role: m.role, content: m.content }); });
+    } else {
+      apiMessages.push({ role: 'user', content: '안녕하세요' });
+    }
+
+    let previewTitle;
+    if (previewMessageIndex !== null && previewMessageIndex >= 0) {
+      previewTitle = 'API 호출 미리보기 · 클릭한 대화 시점 기준 (메시지 ' + (previewMessageIndex + 1) + '/' + messages.length + ')';
+    } else if (previewMsgs.length > 0) {
+      previewTitle = 'API 호출 미리보기 · 최근 대화 기준';
+    } else {
+      previewTitle = 'API 호출 미리보기 · 대화 없음 → "안녕하세요" 기준';
+    }
+    if (els.apiPreviewTitle) els.apiPreviewTitle.textContent = previewTitle;
+    if (els.apiPreviewModalSubtitle) els.apiPreviewModalSubtitle.textContent = previewTitle;
+
+    const temperature = parseFloat(els.tempSlider.value);
+    const useStream = els.streamToggle.checked;
+    const body = buildRequestBody(model, apiMessages, temperature, useStream);
+
+    const rawKey = els.apiKeyInput.value.trim();
+    const maskedKey = rawKey ? maskApiKey(rawKey) : 'sk-or-v1-여기에-API-키를-입력하세요';
+    const bodyJson = JSON.stringify(body, null, 2).split('\n').join('\n  ');
+
+    const code =
+      'fetch("https://openrouter.ai/api/v1/chat/completions", {\n' +
+      '  method: "POST",\n' +
+      '  headers: {\n' +
+      '    "Authorization": "Bearer ' + maskedKey + '",\n' +
+      '    "Content-Type": "application/json",\n' +
+      '    "HTTP-Referer": "' + window.location.href + '",\n' +
+      '    "X-Title": "OpenRouter Chatbot"\n' +
+      '  },\n' +
+      '  body: JSON.stringify(' + bodyJson + ')\n' +
+      '})';
+
+    const codeHtml = highlightGroupsInText(code, [
+      { className: 'chat-highlight', values: apiMessages.map(function (m) { return m.content; }) },
+      { className: 'chat-highlight-green', values: [model, { value: maskedKey, mode: 'raw' }] },
+    ]);
+    els.apiPreviewCode.innerHTML = codeHtml;
+    if (els.apiPreviewModalCode) els.apiPreviewModalCode.innerHTML = codeHtml;
+  }
+
+  // ---------- 모델 목록 ----------
+  function populateModelSelect(models, filterText) {
+    const filter = (filterText || '').trim().toLowerCase();
+    const freeOnly = els.freeOnlyToggle.checked;
+    const includeErrorModels = els.includeTestErrorModels.checked;
+    const filtered = models.filter(function (m) {
+      const matchesFilter = !filter ||
+        m.id.toLowerCase().includes(filter) ||
+        (m.name || '').toLowerCase().includes(filter);
+      const matchesFree = !freeOnly || m.pricingLabel === 'free';
+      const matchesTestFilter = includeErrorModels || !isTestErrorModel(m.id);
+      return matchesFilter && matchesFree && matchesTestFilter;
+    });
+
+    const previouslySelected = els.modelSelect.value || localStorage.getItem(STORAGE_KEYS.model);
+    els.modelSelect.innerHTML = '';
+
+    if (filtered.length === 0) {
+      const opt = document.createElement('option');
+      opt.value = '';
+      opt.textContent = '검색 결과 없음';
+      els.modelSelect.appendChild(opt);
+      return;
+    }
+
+    filtered.forEach(function (m) {
+      const opt = document.createElement('option');
+      opt.value = m.id;
+      const priceTag = m.pricingLabel ? ' — ' + m.pricingLabel : '';
+      opt.textContent = (m.name || m.id) + priceTag;
+      els.modelSelect.appendChild(opt);
+    });
+
+    if (previouslySelected && filtered.some(function (m) { return m.id === previouslySelected; })) {
+      els.modelSelect.value = previouslySelected;
+    }
+    els.modelHint.textContent = filtered.length + '개 모델';
+  }
+
+  async function loadModels() {
+    els.modelSelect.innerHTML = '<option value="">모델 목록 불러오는 중...</option>';
+    els.modelHint.textContent = '';
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/models');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      allModels = (data.data || []).filter(function (m) {
+        return !/gemma/i.test(m.id) && !/poolside/i.test(m.id);
+      }).map(function (m) {
+        let pricingLabel = '';
+        const prompt = m.pricing && m.pricing.prompt ? parseFloat(m.pricing.prompt) : 0;
+        if (prompt === 0) {
+          pricingLabel = 'free';
+        } else {
+          pricingLabel = '$' + (prompt * 1000000).toFixed(2) + '/1M tok';
+        }
+        return { id: m.id, name: m.name, pricingLabel: pricingLabel };
+      }).sort(function (a, b) { return a.id.localeCompare(b.id); });
+
+      populateModelSelect(allModels, els.modelFilter.value);
+      renderFallbackChips();
+      populateAdvModelSelect();
+
+      const savedModel = localStorage.getItem(STORAGE_KEYS.model);
+      if (savedModel && allModels.some(function (m) { return m.id === savedModel; })) {
+        els.modelSelect.value = savedModel;
+      } else if (allModels.length > 0) {
+        const freeOnly = els.freeOnlyToggle.checked;
+        const pool = freeOnly ? allModels.filter(function (m) { return m.pricingLabel === 'free'; }) : allModels;
+        const freeRouterModel = allModels.find(function (m) { return m.id === 'openrouter/free'; });
+        const openaiModel = pool.find(function (m) { return m.id.startsWith('openai/'); });
+        const defaultModel = freeRouterModel || openaiModel || pool[0] || allModels[0];
+        els.modelSelect.value = defaultModel.id;
+      }
+
+      if (els.modelSelect.value) {
+        els.advModelSelect.value = els.modelSelect.value;
+        refreshProviderScopeForModel(els.modelSelect.value);
+      }
+      renderApiPreview();
+    } catch (err) {
+      els.modelSelect.innerHTML = '<option value="">모델 목록을 불러오지 못했습니다</option>';
+      showStatus('모델 목록을 불러오지 못했습니다: ' + err.message, 'error');
+    }
+  }
+
+  // ---------- 메시지 렌더링 ----------
+  function clearWelcome() {
+    const welcome = els.chatArea.querySelector('.text-slate-400.text-sm.py-16');
+    if (welcome) welcome.remove();
+  }
+
+  // index: 이 메시지가 messages 배열에서 차지하는 인덱스. 지정하면 버블 클릭 시
+  // 해당 시점까지의 대화 기준 API 호출 코드를 볼 수 있도록 클릭 핸들러를 붙인다.
+  function appendMessageBubble(role, content, index) {
+    clearWelcome();
+    const wrapper = document.createElement('div');
+    wrapper.className = 'max-w-3xl mx-auto flex ' + (role === 'user' ? 'justify-end' : 'justify-start');
+
+    const bubble = document.createElement('div');
+    bubble.className = (role === 'user'
+      ? 'bg-indigo-600 text-white rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[85%] text-sm shadow-sm'
+      : 'bg-white border border-slate-200 rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[85%] text-sm shadow-sm') +
+      (typeof index === 'number' ? ' msg-bubble-clickable cursor-pointer' : '');
+
+    if (typeof index === 'number') {
+      bubble.title = role === 'user'
+        ? '클릭하면 이 메시지의 API 호출 코드를 볼 수 있어요'
+        : '클릭하면 이 응답의 API 응답 결과를 볼 수 있어요';
+      bubble.addEventListener('click', function () {
+        if (role === 'user') {
+          openApiPreviewModal(index);
+        } else {
+          openApiResponseModal(index);
+        }
+      });
+    }
+
+    const contentDiv = document.createElement('div');
+    contentDiv.className = 'msg-content';
+    contentDiv.innerHTML = renderMarkdown(content);
+    bubble.appendChild(contentDiv);
+    wrapper.appendChild(bubble);
+    els.chatArea.appendChild(wrapper);
+    scrollToBottom();
+    return contentDiv;
+  }
+
+  function renderAllMessages() {
+    els.chatArea.innerHTML = '';
+    if (messages.length === 0) {
+      els.chatArea.innerHTML = '<div class="max-w-3xl mx-auto text-center text-slate-400 text-sm py-16">왼쪽에서 API 키를 입력하고 모델을 선택한 뒤 대화를 시작하세요.</div>';
+      return;
+    }
+    messages.forEach(function (m, i) {
+      appendMessageBubble(m.role, m.content, i);
+    });
+  }
+
+  function appendTypingIndicator() {
+    clearWelcome();
+    const wrapper = document.createElement('div');
+    wrapper.id = 'typingIndicator';
+    wrapper.className = 'max-w-3xl mx-auto flex justify-start';
+    wrapper.innerHTML =
+      '<div class="bg-white border border-slate-200 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm flex gap-1">' +
+      '<span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>' +
+      '<span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>' +
+      '<span class="typing-dot w-1.5 h-1.5 rounded-full bg-slate-400 inline-block"></span>' +
+      '</div>';
+    els.chatArea.appendChild(wrapper);
+    scrollToBottom();
+  }
+
+  function removeTypingIndicator() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  // ---------- 전송 로직 ----------
+  async function sendMessage(userText) {
+    const apiKey = els.apiKeyInput.value.trim();
+    const model = els.modelSelect.value;
+
+    if (!apiKey) {
+      showStatus('먼저 OpenRouter API 키를 입력하세요.', 'error');
+      return;
+    }
+    if (!model) {
+      showStatus('모델을 선택하세요.', 'error');
+      return;
+    }
+    hideStatus();
+
+    messages.push({ role: 'user', content: userText });
+    appendMessageBubble('user', userText, messages.length - 1);
+    persistHistory();
+
+    const apiMessages = [];
+    const systemText = els.systemPrompt.value.trim();
+    if (systemText) apiMessages.push({ role: 'system', content: systemText });
+    messages.forEach(function (m) { apiMessages.push({ role: m.role, content: m.content }); });
+
+    const useStream = els.streamToggle.checked;
+    const temperature = parseFloat(els.tempSlider.value);
+
+    isSending = true;
+    els.sendBtn.disabled = true;
+    appendTypingIndicator();
+
+    try {
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': 'Bearer ' + apiKey,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': window.location.href,
+          'X-Title': 'OpenRouter Chatbot',
+        },
+        body: JSON.stringify(buildRequestBody(model, apiMessages, temperature, useStream)),
+      });
+
+      if (!res.ok) {
+        const errBody = await res.text();
+        let errMsg = 'HTTP ' + res.status;
+        try {
+          const parsed = JSON.parse(errBody);
+          if (parsed.error && parsed.error.message) errMsg = parsed.error.message;
+        } catch (e) { /* ignore */ }
+        throw new Error(errMsg);
+      }
+
+      removeTypingIndicator();
+
+      if (useStream) {
+        await handleStreamingResponse(res);
+      } else {
+        const data = await res.json();
+        const reply = data.choices && data.choices[0] && data.choices[0].message
+          ? data.choices[0].message.content : '';
+        messages.push({ role: 'assistant', content: reply, rawResponse: data });
+        appendMessageBubble('assistant', reply, messages.length - 1);
+        persistHistory();
+      }
+    } catch (err) {
+      removeTypingIndicator();
+      showStatus('오류: ' + err.message, 'error');
+    } finally {
+      isSending = false;
+      els.sendBtn.disabled = false;
+    }
+  }
+
+  async function handleStreamingResponse(res) {
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let assistantText = '';
+    const rawChunks = [];
+    messages.push({ role: 'assistant', content: '', rawChunks: rawChunks });
+    const contentDiv = appendMessageBubble('assistant', '', messages.length - 1);
+
+    let buffer = '';
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+
+      const lines = buffer.split('\n');
+      buffer = lines.pop(); // 마지막 불완전한 줄은 다음 루프로 이월
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed.startsWith('data:')) continue;
+        const payload = trimmed.slice(5).trim();
+        if (payload === '[DONE]') continue;
+        try {
+          const json = JSON.parse(payload);
+          rawChunks.push(json);
+          const delta = json.choices && json.choices[0] && json.choices[0].delta
+            ? json.choices[0].delta.content : '';
+          if (delta) {
+            assistantText += delta;
+            contentDiv.innerHTML = renderMarkdown(assistantText);
+            scrollToBottom();
+          }
+        } catch (e) {
+          // OpenRouter가 가끔 처리 중(comment) 라인을 보낼 수 있음 -> 무시
+        }
+      }
+    }
+
+    messages[messages.length - 1].content = assistantText;
+    persistHistory();
+  }
+
+  // ---------- 이벤트 바인딩 ----------
+  els.apiKeyInput.addEventListener('input', persistApiKey);
+  els.toggleKeyBtn.addEventListener('click', function () {
+    const isPassword = els.apiKeyInput.type === 'password';
+    els.apiKeyInput.type = isPassword ? 'text' : 'password';
+    els.toggleKeyBtn.textContent = isPassword ? '숨기기' : '보기';
+  });
+
+  els.modelSelect.addEventListener('change', function () {
+    persistModel();
+    els.advModelSelect.value = els.modelSelect.value;
+    refreshProviderScopeForModel(els.modelSelect.value);
+  });
+  els.advModelSelect.addEventListener('change', function () {
+    selectModelFromModal(this.value);
+  });
+  els.refreshModelsBtn.addEventListener('click', loadModels);
+  els.modelFilter.addEventListener('input', function () {
+    populateModelSelect(allModels, els.modelFilter.value);
+  });
+  els.freeOnlyToggle.addEventListener('change', function () {
+    persistFreeOnly();
+    populateModelSelect(allModels, els.modelFilter.value);
+  });
+
+  els.systemPrompt.addEventListener('input', function () {
+    persistSystem();
+    updateAdvancedSummary();
+  });
+  els.tempSlider.addEventListener('input', function () {
+    els.tempValue.textContent = els.tempSlider.value;
+    persistTemp();
+    updateAdvancedSummary();
+  });
+  els.streamToggle.addEventListener('change', persistStream);
+
+  // 고급 설정 모달 열기/닫기
+  els.openAdvancedBtn.addEventListener('click', openAdvancedModal);
+  els.closeAdvancedModal.addEventListener('click', closeAdvancedModal);
+  els.closeAdvancedModalBtn.addEventListener('click', closeAdvancedModal);
+  els.advancedModalOverlay.addEventListener('click', closeAdvancedModal);
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && els.advancedModal.classList.contains('open')) closeAdvancedModal();
+    if (e.key === 'Escape' && els.apiPreviewModal.classList.contains('open')) closeApiPreviewModalFn();
+  });
+
+  // 메인 화면에서 바로 API 호출 코드 보기 (고급 설정과 무관, 최근 대화 기준)
+  els.mainApiPreviewBtn.addEventListener('click', openApiPreviewModal);
+  els.closeApiPreviewModal.addEventListener('click', closeApiPreviewModalFn);
+  els.runPreviewBtn.addEventListener('click', runApiPreviewCall);
+  els.apiPreviewModalOverlay.addEventListener('click', closeApiPreviewModalFn);
+  els.copyPreviewModalBtn.addEventListener('click', function () {
+    const text = els.apiPreviewModalCode.textContent;
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+    navigator.clipboard.writeText(text).then(function () {
+      const original = els.copyPreviewModalBtn.textContent;
+      els.copyPreviewModalBtn.textContent = '복사됨!';
+      setTimeout(function () { els.copyPreviewModalBtn.textContent = original; }, 1500);
+    }).catch(function () { /* ignore */ });
+  });
+
+  els.includeTestErrorModels.addEventListener('change', function () {
+    persistAdvanced();
+    updateAdvancedSummary();
+    populateModelSelect(allModels, els.modelFilter.value);
+    populateAdvModelSelect();
+  });
+
+  // Provider 우선순위 / 제외 추가
+  els.providerOrderAdd.addEventListener('change', function () {
+    if (!this.value) return;
+    advProviderOrder.push(this.value);
+    this.value = '';
+    renderProviderChips();
+    populateProviderSelects();
+    persistAdvanced();
+    updateAdvancedSummary();
+  });
+  els.providerIgnoreAdd.addEventListener('change', function () {
+    if (!this.value) return;
+    advProviderIgnore.push(this.value);
+    this.value = '';
+    renderProviderChips();
+    populateProviderSelects();
+    persistAdvanced();
+    updateAdvancedSummary();
+  });
+
+  // 정렬 기준 / 데이터 수집 정책 선택 그룹
+  updateSortActive = setupChoiceGroup(els.providerSortOptions, function (v) {
+    advProviderSort = v; persistAdvanced(); updateAdvancedSummary();
+  });
+  updateDataCollectionActive = setupChoiceGroup(els.dataCollectionOptions, function (v) {
+    advDataCollection = v; persistAdvanced(); updateAdvancedSummary();
+  });
+
+  els.allowFallbacks.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
+  els.requireParameters.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
+
+  // 폴백 모델 검색
+  els.fallbackModelSearch.addEventListener('input', function () {
+    const q = this.value.trim().toLowerCase();
+    if (!q) {
+      els.fallbackModelResults.classList.add('hidden');
+      els.fallbackModelResults.innerHTML = '';
+      return;
+    }
+    const matches = allModels.filter(function (m) {
+      return (m.id.toLowerCase().includes(q) || (m.name || '').toLowerCase().includes(q)) &&
+        advFallbackModels.indexOf(m.id) === -1 &&
+        (els.includeTestErrorModels.checked || !isTestErrorModel(m.id));
+    }).slice(0, 20);
+    renderFallbackResults(matches);
+  });
+  els.fallbackModelSearch.addEventListener('blur', function () {
+    setTimeout(function () { els.fallbackModelResults.classList.add('hidden'); }, 150);
+  });
+
+  // 요청 파라미터
+  els.maxTokens.addEventListener('input', function () { persistAdvanced(); updateAdvancedSummary(); });
+  els.seedInput.addEventListener('input', function () { persistAdvanced(); updateAdvancedSummary(); });
+  els.jsonMode.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
+  els.middleOut.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
+
+  els.resetAdvancedBtn.addEventListener('click', resetAdvancedSettings);
+  els.togglePreviewBtn.addEventListener('click', togglePreviewPanel);
+
+  els.copyPreviewBtn.addEventListener('click', function () {
+    const text = els.apiPreviewCode.textContent;
+    if (!navigator.clipboard || !navigator.clipboard.writeText) return;
+    navigator.clipboard.writeText(text).then(function () {
+      const original = els.copyPreviewBtn.textContent;
+      els.copyPreviewBtn.textContent = '복사됨!';
+      setTimeout(function () { els.copyPreviewBtn.textContent = original; }, 1500);
+    }).catch(function () { /* ignore */ });
+  });
+
+  els.clearChatBtn.addEventListener('click', function () {
+    messages = [];
+    persistHistory();
+    renderAllMessages();
+    hideStatus();
+  });
+
+  els.chatForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (isSending) return;
+    const text = els.messageInput.value.trim();
+    if (!text) return;
+    els.messageInput.value = '';
+    els.messageInput.style.height = 'auto';
+    sendMessage(text);
+  });
+
+  els.messageInput.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      els.chatForm.requestSubmit();
+    }
+  });
+
+  els.messageInput.addEventListener('input', function () {
+    els.messageInput.style.height = 'auto';
+    els.messageInput.style.height = Math.min(els.messageInput.scrollHeight, 160) + 'px';
+  });
+
+  // 모바일 설정 패널: 사이드바를 그대로 이동시켜 재사용
+  els.mobileSettingsBtn.addEventListener('click', function () {
+    const sidebarContent = document.querySelector('aside > div.p-5.space-y-5');
+    if (sidebarContent && !els.mobileSettingsMount.contains(sidebarContent)) {
+      els.mobileSettingsMount.appendChild(sidebarContent);
+    }
+    els.mobileOverlay.classList.remove('hidden');
+    els.mobilePanel.classList.remove('hidden');
+  });
+  function closeMobilePanel() {
+    els.mobileOverlay.classList.add('hidden');
+    els.mobilePanel.classList.add('hidden');
+  }
+  els.closeMobilePanel.addEventListener('click', closeMobilePanel);
+  els.mobileOverlay.addEventListener('click', closeMobilePanel);
+
+  // ---------- 초기화 ----------
+  loadSettings();
+  renderQuantOptions();
+  renderProviderChips();
+  populateProviderSelects();
+  renderFallbackChips();
+  updateSortActive(advProviderSort);
+  updateDataCollectionActive(advDataCollection);
+  SLIDER_IDS.forEach(setupSlider);
+  updateAdvancedSummary();
+  renderApiPreview();
+  loadModels();
+  loadProviders();
+})();
+</script>
+</body>
+</html>
