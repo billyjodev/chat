@@ -121,6 +121,8 @@
     font-size: 0.8125rem; font-weight: 600; cursor: pointer;
   }
   .adv-save-btn:hover { background: #4338ca; }
+  .adv-reset-btn.danger { border-color: #fca5a5; color: #b91c1c; }
+  .adv-reset-btn.danger:hover { background: #fef2f2; }
 
   /* ===== API 호출 코드 전용 모달 (메인 화면) ===== */
   .api-modal-overlay {
@@ -300,7 +302,10 @@
 
       <!-- 모델 선택 -->
       <div>
-        <label class="block text-sm font-medium text-slate-700 mb-1.5">모델</label>
+        <div class="flex items-center justify-between mb-1.5">
+          <label class="block text-sm font-medium text-slate-700">모델</label>
+          <button id="selectAutoRouterBtn" type="button" class="text-xs text-indigo-600 hover:underline shrink-0">⚡ Auto Router 선택</button>
+        </div>
         <select id="modelSelect"
           class="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
           <option value="">모델 목록 불러오는 중...</option>
@@ -415,6 +420,7 @@
       <a href="#advSectionFallback">모델 폴백</a>
       <a href="#advSectionParams">요청 파라미터</a>
       <a href="#advSectionResponse">응답 형식</a>
+      <a href="#advSectionData">데이터 관리</a>
     </nav>
 
     <div class="adv-modal-content">
@@ -429,6 +435,15 @@
             <p class="adv-field-desc">무료 모델 전체에 test API 호출을 해본 결과 오류 응답을 반환한 모델입니다. 기본적으로 모델 선택 목록에서 제외됩니다. 켜면 다시 표시됩니다.</p>
           </div>
           <label class="adv-switch"><input id="includeTestErrorModels" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+
+        <div class="adv-field">
+          <label>모델 목록 가격 필터</label>
+          <p class="adv-field-desc">사이드바 모델 선택 목록에 표시할 모델의 가격 범위를 정합니다. "1달러 미만만 표시"는 100만 토큰당 프롬프트 가격이 $1 미만인 모델(무료 포함)만 보여줍니다.</p>
+          <div id="priceFilterOptions" class="adv-choice-group">
+            <button type="button" class="adv-choice" data-value="under1">1달러 미만만 표시<span class="adv-choice-desc">100만 토큰당 $1 미만</span></button>
+            <button type="button" class="adv-choice" data-value="all">전체 표시<span class="adv-choice-desc">가격 제한 없음</span></button>
+          </div>
         </div>
 
         <div class="adv-field">
@@ -640,6 +655,20 @@
           <label class="adv-switch"><input id="middleOut" type="checkbox" /><span class="adv-switch-track"></span></label>
         </div>
       </section>
+
+      <!-- 데이터 관리 -->
+      <section id="advSectionData" class="adv-section-card">
+        <h3 class="adv-card-title">데이터 관리</h3>
+        <p class="adv-card-desc">이 브라우저에 저장된 API 키, 대화 기록, 모델 선택, 고급 설정 등 모든 데이터를 삭제합니다.</p>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label>로컬스토리지 초기화</label>
+            <p class="adv-field-desc">되돌릴 수 없습니다. 초기화 후 페이지가 새로고침됩니다.</p>
+          </div>
+          <button id="clearLocalStorageBtn" type="button" class="adv-reset-btn danger">로컬스토리지 초기화</button>
+        </div>
+      </section>
     </div>
   </div>
 
@@ -701,7 +730,12 @@
     history: 'or_chat_history',
     freeOnly: 'or_chat_free_only',
     advanced: 'or_chat_advanced_v2',
+    priceFilter: 'or_chat_price_filter',
   };
+
+  const DEFAULT_SYSTEM_PROMPT = '500자 이내로 답변하세요';
+  const PRICE_FILTER_DEFAULT = 'under1';
+  const PRICE_FILTER_THRESHOLD = 1; // $ per 1M tokens
 
   const QUANT_OPTIONS = [
     { value: 'fp32', label: 'FP32', desc: '최고 정밀도' },
@@ -752,6 +786,7 @@
     apiKeyInput: document.getElementById('apiKeyInput'),
     toggleKeyBtn: document.getElementById('toggleKeyBtn'),
     modelSelect: document.getElementById('modelSelect'),
+    selectAutoRouterBtn: document.getElementById('selectAutoRouterBtn'),
     modelHint: document.getElementById('modelHint'),
     refreshModelsBtn: document.getElementById('refreshModelsBtn'),
     modelFilter: document.getElementById('modelFilter'),
@@ -792,12 +827,14 @@
     closeAdvancedModal: document.getElementById('closeAdvancedModal'),
     closeAdvancedModalBtn: document.getElementById('closeAdvancedModalBtn'),
     resetAdvancedBtn: document.getElementById('resetAdvancedBtn'),
+    clearLocalStorageBtn: document.getElementById('clearLocalStorageBtn'),
     advPreviewPanel: document.getElementById('advPreviewPanel'),
     togglePreviewBtn: document.getElementById('togglePreviewBtn'),
     apiPreviewTitle: document.getElementById('apiPreviewTitle'),
     apiPreviewCode: document.getElementById('apiPreviewCode'),
     copyPreviewBtn: document.getElementById('copyPreviewBtn'),
     includeTestErrorModels: document.getElementById('includeTestErrorModels'),
+    priceFilterOptions: document.getElementById('priceFilterOptions'),
 
     // Provider 라우팅
     advModelSelect: document.getElementById('advModelSelect'),
@@ -861,6 +898,8 @@
   let advDataCollection = '';
   let updateSortActive = function () {};
   let updateDataCollectionActive = function () {};
+  let updatePriceFilterActive = function () {};
+  let advPriceFilter = PRICE_FILTER_DEFAULT;
   const sliderRefs = {};
   let modelProviders = null; // 선택된 모델을 지원하는 provider 목록 (null이면 전체 provider 사용)
   let modelProviderRequestToken = 0;
@@ -917,7 +956,7 @@
     if (savedKey) els.apiKeyInput.value = savedKey;
 
     const savedSystem = localStorage.getItem(STORAGE_KEYS.system);
-    if (savedSystem) els.systemPrompt.value = savedSystem;
+    els.systemPrompt.value = savedSystem !== null ? savedSystem : DEFAULT_SYSTEM_PROMPT;
 
     const savedTemp = localStorage.getItem(STORAGE_KEYS.temp);
     if (savedTemp) {
@@ -930,6 +969,9 @@
 
     const savedFreeOnly = localStorage.getItem(STORAGE_KEYS.freeOnly);
     if (savedFreeOnly !== null) els.freeOnlyToggle.checked = savedFreeOnly === 'true';
+
+    const savedPriceFilter = localStorage.getItem(STORAGE_KEYS.priceFilter);
+    advPriceFilter = (savedPriceFilter === 'all' || savedPriceFilter === 'under1') ? savedPriceFilter : PRICE_FILTER_DEFAULT;
 
     const savedHistory = localStorage.getItem(STORAGE_KEYS.history);
     if (savedHistory) {
@@ -960,6 +1002,10 @@
   }
   function persistFreeOnly() {
     localStorage.setItem(STORAGE_KEYS.freeOnly, String(els.freeOnlyToggle.checked));
+  }
+  function persistPriceFilter() {
+    localStorage.setItem(STORAGE_KEYS.priceFilter, advPriceFilter);
+    renderApiPreview();
   }
   function persistModel() {
     if (els.modelSelect.value) localStorage.setItem(STORAGE_KEYS.model, els.modelSelect.value);
@@ -1145,7 +1191,7 @@
   }
 
   function isAdvancedActive() {
-    if (els.systemPrompt.value.trim() !== '') return true;
+    if (els.systemPrompt.value !== DEFAULT_SYSTEM_PROMPT) return true;
     if (parseFloat(els.tempSlider.value) !== 0.7) return true;
     if (els.includeTestErrorModels.checked) return true;
     if (advProviderOrder.length > 0 || advProviderIgnore.length > 0 || advProviderQuant.length > 0 || advFallbackModels.length > 0) return true;
@@ -1217,7 +1263,7 @@
   }
 
   function resetAdvancedSettings() {
-    els.systemPrompt.value = '';
+    els.systemPrompt.value = DEFAULT_SYSTEM_PROMPT;
     els.tempSlider.value = 0.7;
     els.tempValue.textContent = '0.7';
     persistSystem();
@@ -1256,6 +1302,13 @@
     populateAdvModelSelect();
     persistAdvanced();
     updateAdvancedSummary();
+  }
+
+  function clearAllLocalStorage() {
+    const ok = window.confirm('API 키, 대화 기록, 모델 선택, 고급 설정 등 저장된 모든 데이터가 삭제됩니다.\n계속하시겠습니까?');
+    if (!ok) return;
+    Object.keys(STORAGE_KEYS).forEach(function (name) { localStorage.removeItem(STORAGE_KEYS[name]); });
+    location.reload();
   }
 
   function openAdvancedModal() {
@@ -1555,14 +1608,26 @@
     els.advModelSelect.value = els.modelSelect.value;
   }
 
+  // 지정한 모델이 사이드바 모델 목록 필터에 가려지지 않도록 "무료 모델만 보기"와
+  // 가격 필터("1달러 미만만 표시")를 필요한 만큼 완화한다.
+  function ensureModelFiltersAllow(model) {
+    if (!model) return;
+    if (els.freeOnlyToggle.checked && model.pricingLabel !== 'free') {
+      els.freeOnlyToggle.checked = false;
+      persistFreeOnly();
+    }
+    if (advPriceFilter === 'under1' && !(model.price < PRICE_FILTER_THRESHOLD)) {
+      advPriceFilter = 'all';
+      persistPriceFilter();
+      updatePriceFilterActive('all');
+    }
+  }
+
   // 고급 설정 모달에서 모델을 바꾸면 사이드바의 모델 선택(=실제 전송에 쓰이는 값)도 함께 바뀐다
   function selectModelFromModal(modelId) {
     if (!modelId) return;
     const model = allModels.find(function (m) { return m.id === modelId; });
-    if (model && els.freeOnlyToggle.checked && model.pricingLabel !== 'free') {
-      els.freeOnlyToggle.checked = false;
-      persistFreeOnly();
-    }
+    ensureModelFiltersAllow(model);
     els.modelFilter.value = '';
     populateModelSelect(allModels, '');
     els.modelSelect.value = modelId;
@@ -1718,8 +1783,9 @@
         m.id.toLowerCase().includes(filter) ||
         (m.name || '').toLowerCase().includes(filter);
       const matchesFree = !freeOnly || m.pricingLabel === 'free';
+      const matchesPrice = advPriceFilter !== 'under1' || m.price < PRICE_FILTER_THRESHOLD;
       const matchesTestFilter = includeErrorModels || !isTestErrorModel(m.id);
-      return matchesFilter && matchesFree && matchesTestFilter;
+      return matchesFilter && matchesFree && matchesPrice && matchesTestFilter;
     });
 
     const previouslySelected = els.modelSelect.value || localStorage.getItem(STORAGE_KEYS.model);
@@ -1764,7 +1830,7 @@
         } else {
           pricingLabel = '$' + (prompt * 1000000).toFixed(2) + '/1M tok';
         }
-        return { id: m.id, name: m.name, pricingLabel: pricingLabel };
+        return { id: m.id, name: m.name, pricingLabel: pricingLabel, price: prompt * 1000000 };
       }).sort(function (a, b) { return a.id.localeCompare(b.id); });
 
       populateModelSelect(allModels, els.modelFilter.value);
@@ -1775,12 +1841,19 @@
       if (savedModel && allModels.some(function (m) { return m.id === savedModel; })) {
         els.modelSelect.value = savedModel;
       } else if (allModels.length > 0) {
-        const freeOnly = els.freeOnlyToggle.checked;
-        const pool = freeOnly ? allModels.filter(function (m) { return m.pricingLabel === 'free'; }) : allModels;
-        const freeRouterModel = allModels.find(function (m) { return m.id === 'openrouter/free'; });
-        const openaiModel = pool.find(function (m) { return m.id.startsWith('openai/'); });
-        const defaultModel = freeRouterModel || openaiModel || pool[0] || allModels[0];
-        els.modelSelect.value = defaultModel.id;
+        const autoRouterModel = allModels.find(function (m) { return m.id === 'openrouter/auto'; });
+        if (autoRouterModel) {
+          ensureModelFiltersAllow(autoRouterModel);
+          populateModelSelect(allModels, els.modelFilter.value);
+          els.modelSelect.value = autoRouterModel.id;
+        } else {
+          const freeOnly = els.freeOnlyToggle.checked;
+          const pool = freeOnly ? allModels.filter(function (m) { return m.pricingLabel === 'free'; }) : allModels;
+          const freeRouterModel = allModels.find(function (m) { return m.id === 'openrouter/free'; });
+          const openaiModel = pool.find(function (m) { return m.id.startsWith('openai/'); });
+          const defaultModel = freeRouterModel || openaiModel || pool[0] || allModels[0];
+          els.modelSelect.value = defaultModel.id;
+        }
       }
 
       if (els.modelSelect.value) {
@@ -2000,6 +2073,14 @@
     selectModelFromModal(this.value);
   });
   els.refreshModelsBtn.addEventListener('click', loadModels);
+  els.selectAutoRouterBtn.addEventListener('click', function () {
+    const autoRouterModel = allModels.find(function (m) { return m.id === 'openrouter/auto'; });
+    if (!autoRouterModel) {
+      showStatus('Auto Router 모델(openrouter/auto)을 찾을 수 없습니다.', 'error');
+      return;
+    }
+    selectModelFromModal(autoRouterModel.id);
+  });
   els.modelFilter.addEventListener('input', function () {
     populateModelSelect(allModels, els.modelFilter.value);
   });
@@ -2078,6 +2159,11 @@
   updateDataCollectionActive = setupChoiceGroup(els.dataCollectionOptions, function (v) {
     advDataCollection = v; persistAdvanced(); updateAdvancedSummary();
   });
+  updatePriceFilterActive = setupChoiceGroup(els.priceFilterOptions, function (v) {
+    advPriceFilter = v || PRICE_FILTER_DEFAULT;
+    persistPriceFilter();
+    populateModelSelect(allModels, els.modelFilter.value);
+  });
 
   els.allowFallbacks.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
   els.requireParameters.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
@@ -2108,6 +2194,7 @@
   els.middleOut.addEventListener('change', function () { persistAdvanced(); updateAdvancedSummary(); });
 
   els.resetAdvancedBtn.addEventListener('click', resetAdvancedSettings);
+  els.clearLocalStorageBtn.addEventListener('click', clearAllLocalStorage);
   els.togglePreviewBtn.addEventListener('click', togglePreviewPanel);
 
   els.copyPreviewBtn.addEventListener('click', function () {
@@ -2173,6 +2260,7 @@
   renderFallbackChips();
   updateSortActive(advProviderSort);
   updateDataCollectionActive(advDataCollection);
+  updatePriceFilterActive(advPriceFilter);
   SLIDER_IDS.forEach(setupSlider);
   updateAdvancedSummary();
   renderApiPreview();
