@@ -964,6 +964,17 @@
     const savedKey = localStorage.getItem(STORAGE_KEYS.apiKey);
     if (savedKey) els.apiKeyInput.value = savedKey;
 
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlApiKey = urlParams.get('api_key');
+    if (urlApiKey) {
+      els.apiKeyInput.value = urlApiKey.replace(/\s+/g, '');
+      localStorage.setItem(STORAGE_KEYS.apiKey, getApiKey());
+      urlParams.delete('api_key');
+      const remaining = urlParams.toString();
+      const cleanedUrl = window.location.pathname + (remaining ? '?' + remaining : '') + window.location.hash;
+      window.history.replaceState({}, document.title, cleanedUrl);
+    }
+
     const savedSystem = localStorage.getItem(STORAGE_KEYS.system);
     els.systemPrompt.value = savedSystem !== null ? savedSystem : DEFAULT_SYSTEM_PROMPT;
 
