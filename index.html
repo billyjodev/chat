@@ -993,8 +993,12 @@
     loadAdvancedSettings();
   }
 
+  function getApiKey() {
+    return els.apiKeyInput.value.replace(/\s+/g, '');
+  }
+
   function persistApiKey() {
-    localStorage.setItem(STORAGE_KEYS.apiKey, els.apiKeyInput.value.trim());
+    localStorage.setItem(STORAGE_KEYS.apiKey, getApiKey());
     renderApiPreview();
   }
   function persistSystem() {
@@ -1424,7 +1428,7 @@
   // "실행" 버튼: 미리보기 코드와 동일한 요청을 실제로 호출해 응답을 모달 안에 표시한다.
   // 실제 채팅 내역(messages)에는 반영하지 않는 순수 미리보기/테스트 호출이다.
   async function runApiPreviewCall() {
-    const apiKey = els.apiKeyInput.value.trim();
+    const apiKey = getApiKey();
     const model = els.modelSelect.value;
 
     els.apiPreviewModalResponseWrap.classList.remove('hidden');
@@ -1768,7 +1772,7 @@
     const useStream = els.streamToggle.checked;
     const body = buildRequestBody(model, apiMessages, temperature, useStream);
 
-    const rawKey = els.apiKeyInput.value.trim();
+    const rawKey = getApiKey();
     const maskedKey = rawKey ? maskApiKey(rawKey) : 'sk-or-v1-여기에-API-키를-입력하세요';
     const bodyJson = JSON.stringify(body, null, 2).split('\n').join('\n  ');
 
@@ -1960,7 +1964,7 @@
 
   // ---------- 전송 로직 ----------
   async function sendMessage(userText) {
-    const apiKey = els.apiKeyInput.value.trim();
+    const apiKey = getApiKey();
     const model = els.modelSelect.value;
 
     if (!apiKey) {
