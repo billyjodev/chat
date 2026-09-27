@@ -25,6 +25,32 @@
     font-size: 0.9em;
   }
   .msg-content pre code { background: transparent; padding: 0; }
+  .msg-content h1, .msg-content h2, .msg-content h3,
+  .msg-content h4, .msg-content h5, .msg-content h6 {
+    font-weight: 700; line-height: 1.35; margin: 0.75em 0 0.35em;
+  }
+  .msg-content h1:first-child, .msg-content h2:first-child, .msg-content h3:first-child,
+  .msg-content h4:first-child, .msg-content h5:first-child, .msg-content h6:first-child { margin-top: 0; }
+  .msg-content h1 { font-size: 1.25em; }
+  .msg-content h2 { font-size: 1.15em; }
+  .msg-content h3 { font-size: 1.05em; }
+  .msg-content h4, .msg-content h5, .msg-content h6 { font-size: 1em; }
+  .msg-content ul, .msg-content ol { margin: 0.5em 0; padding-left: 1.35em; }
+  .msg-content ul { list-style: disc; }
+  .msg-content ol { list-style: decimal; }
+  .msg-content li { margin: 0.2em 0; }
+  .msg-content blockquote {
+    margin: 0.5em 0; padding: 0.1em 0.9em; border-left: 3px solid #cbd5e1; color: #64748b;
+  }
+  .msg-content blockquote p { margin: 0.35em 0; }
+  .msg-content hr { border: none; border-top: 1px solid #e2e8f0; margin: 0.75em 0; }
+  .msg-content a { color: #4f46e5; text-decoration: underline; }
+  .msg-content strong { font-weight: 700; }
+  .msg-content em { font-style: italic; }
+  .msg-content del { text-decoration: line-through; }
+  .justify-end .msg-content a { color: #fff; }
+  .justify-end .msg-content blockquote { border-left-color: rgba(255,255,255,.5); color: rgba(255,255,255,.85); }
+  .justify-end .msg-content hr { border-top-color: rgba(255,255,255,.35); }
 
   .msg-bubble-clickable { transition: box-shadow .15s, opacity .15s; }
   .msg-bubble-clickable:hover { opacity: 0.88; box-shadow: 0 0 0 2px rgba(99,102,241,.35); }
@@ -420,6 +446,7 @@
       <a href="#advSectionFallback">모델 폴백</a>
       <a href="#advSectionParams">요청 파라미터</a>
       <a href="#advSectionResponse">응답 형식</a>
+      <a href="#advSectionMisc">기타</a>
       <a href="#advSectionData">데이터 관리</a>
     </nav>
 
@@ -428,31 +455,6 @@
       <section id="advSectionGeneral" class="adv-section-card">
         <h3 class="adv-card-title">일반</h3>
         <p class="adv-card-desc">시스템 프롬프트와 응답의 창의성(Temperature)을 설정합니다.</p>
-
-        <div class="adv-toggle-row">
-          <div>
-            <label for="includeTestErrorModels">테스트 호출 오류 모델 포함</label>
-            <p class="adv-field-desc">무료 모델 전체에 test API 호출을 해본 결과 오류 응답을 반환한 모델입니다. 기본적으로 모델 선택 목록에서 제외됩니다. 켜면 다시 표시됩니다.</p>
-          </div>
-          <label class="adv-switch"><input id="includeTestErrorModels" type="checkbox" /><span class="adv-switch-track"></span></label>
-        </div>
-
-        <div class="adv-field">
-          <label>모델 목록 가격 필터</label>
-          <p class="adv-field-desc">사이드바 모델 선택 목록에 표시할 모델의 가격 범위를 정합니다. "1달러 미만만 표시"는 100만 토큰당 프롬프트 가격이 $1 미만인 모델(무료 포함)만 보여줍니다.</p>
-          <div id="priceFilterOptions" class="adv-choice-group">
-            <button type="button" class="adv-choice" data-value="under1">1달러 미만만 표시<span class="adv-choice-desc">100만 토큰당 $1 미만</span></button>
-            <button type="button" class="adv-choice" data-value="all">전체 표시<span class="adv-choice-desc">가격 제한 없음</span></button>
-          </div>
-        </div>
-
-        <div class="adv-toggle-row">
-          <div>
-            <label for="showModelPrice">모델 선택 목록에 가격 표시</label>
-            <p class="adv-field-desc">사이드바 모델 선택, 폴백 모델 검색, Provider 라우팅의 대상 모델 목록에 100만 토큰당 가격을 함께 보여줍니다. 기본값은 미표시입니다.</p>
-          </div>
-          <label class="adv-switch"><input id="showModelPrice" type="checkbox" /><span class="adv-switch-track"></span></label>
-        </div>
 
         <div class="adv-field">
           <label for="systemPrompt">시스템 프롬프트 (선택)</label>
@@ -664,6 +666,37 @@
         </div>
       </section>
 
+      <!-- 기타 -->
+      <section id="advSectionMisc" class="adv-section-card">
+        <h3 class="adv-card-title">기타</h3>
+        <p class="adv-card-desc">모델 목록 표시와 관련된 부가 옵션입니다.</p>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="includeTestErrorModels">테스트 호출 오류 모델 포함</label>
+            <p class="adv-field-desc">무료 모델 전체에 test API 호출을 해본 결과 오류 응답을 반환한 모델입니다. 기본적으로 모델 선택 목록에서 제외됩니다. 켜면 다시 표시됩니다.</p>
+          </div>
+          <label class="adv-switch"><input id="includeTestErrorModels" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+
+        <div class="adv-field">
+          <label>모델 목록 가격 필터</label>
+          <p class="adv-field-desc">사이드바 모델 선택 목록에 표시할 모델의 가격 범위를 정합니다. "1달러 미만만 표시"는 100만 토큰당 프롬프트 가격이 $1 미만인 모델(무료 포함)만 보여줍니다.</p>
+          <div id="priceFilterOptions" class="adv-choice-group">
+            <button type="button" class="adv-choice" data-value="under1">1달러 미만만 표시<span class="adv-choice-desc">100만 토큰당 $1 미만</span></button>
+            <button type="button" class="adv-choice" data-value="all">전체 표시<span class="adv-choice-desc">가격 제한 없음</span></button>
+          </div>
+        </div>
+
+        <div class="adv-toggle-row">
+          <div>
+            <label for="showModelPrice">모델 선택 목록에 가격 표시</label>
+            <p class="adv-field-desc">사이드바 모델 선택, 폴백 모델 검색, Provider 라우팅의 대상 모델 목록에 100만 토큰당 가격을 함께 보여줍니다. 기본값은 미표시입니다. 가격이 100만 토큰당 $10,000 이상인 모델은 가격을 표시하지 않습니다.</p>
+          </div>
+          <label class="adv-switch"><input id="showModelPrice" type="checkbox" /><span class="adv-switch-track"></span></label>
+        </div>
+      </section>
+
       <!-- 데이터 관리 -->
       <section id="advSectionData" class="adv-section-card">
         <h3 class="adv-card-title">데이터 관리</h3>
@@ -744,6 +777,7 @@
   const DEFAULT_SYSTEM_PROMPT = '500자 이내로 답변하세요';
   const PRICE_FILTER_DEFAULT = 'under1';
   const PRICE_FILTER_THRESHOLD = 1; // $ per 1M tokens
+  const PRICE_DISPLAY_MAX = 10000; // $ per 1M tokens 이상이면 가격 미표시
 
   const QUANT_OPTIONS = [
     { value: 'fp32', label: 'FP32', desc: '최고 정밀도' },
@@ -921,17 +955,129 @@
       .replace(/>/g, '&gt;');
   }
 
-  // 아주 단순한 마크다운 렌더링 (코드블록 / 인라인코드 / 줄바꿈)
-  function renderMarkdown(text) {
-    const escaped = escapeHtml(text);
-    const withCodeBlocks = escaped.replace(/```([\s\S]*?)```/g, function (_, code) {
-      return '<pre><code>' + code.replace(/^\w*\n/, '') + '</code></pre>';
+  // 마크다운 인라인 서식(굵게/기울임/취소선/링크/인라인코드) 렌더링.
+  // text는 이미 escapeHtml을 거친 상태여야 한다.
+  function renderMarkdownInline(text) {
+    const codeSpans = [];
+    let out = text.replace(/`([^`\n]+)`/g, function (_, code) {
+      codeSpans.push(code);
+      return '\\u0000CODE' + (codeSpans.length - 1) + '\\u0000';
     });
-    const withInlineCode = withCodeBlocks.replace(/`([^`]+)`/g, '<code>$1</code>');
-    const withBreaks = withInlineCode.split(/\n{2,}/).map(function (para) {
-      return '<p>' + para.replace(/\n/g, '<br>') + '</p>';
-    }).join('');
-    return withBreaks;
+
+    out = out.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, function (_, label, url) {
+      return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + label + '</a>';
+    });
+    out = out.replace(/\*\*\*([\s\S]+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+    out = out.replace(/\*\*([\s\S]+?)\*\*/g, '<strong>$1</strong>');
+    out = out.replace(/__([\s\S]+?)__/g, '<strong>$1</strong>');
+    out = out.replace(/~~([\s\S]+?)~~/g, '<del>$1</del>');
+    out = out.replace(/\*([^*\n]+)\*/g, '<em>$1</em>');
+    out = out.replace(/(^|[^\w])_([^_\n]+)_(?=$|[^\w])/g, '$1<em>$2</em>');
+
+    out = out.replace(/\\u0000CODE(\d+)\\u0000/g, function (_, idx) {
+      return '<code>' + codeSpans[Number(idx)] + '</code>';
+    });
+    return out;
+  }
+
+  // 마크다운 렌더링: 코드블록, 헤더, 인용문, 목록, 구분선, 인라인 서식, 문단/줄바꿈을 지원한다.
+  function renderMarkdown(text) {
+    const lines = String(text).replace(/\r\n/g, '\n').split('\n');
+    const htmlParts = [];
+    let list = null; // { type: 'ul' | 'ol', items: [] }
+    let i = 0;
+
+    function flushList() {
+      if (list) {
+        htmlParts.push('<' + list.type + '>' + list.items.join('') + '</' + list.type + '>');
+        list = null;
+      }
+    }
+
+    while (i < lines.length) {
+      const line = lines[i];
+
+      const fenceMatch = line.match(/^\s*```(\w*)\s*$/);
+      if (fenceMatch) {
+        flushList();
+        const codeLines = [];
+        i++;
+        while (i < lines.length && !/^\s*```\s*$/.test(lines[i])) {
+          codeLines.push(lines[i]);
+          i++;
+        }
+        i++;
+        htmlParts.push('<pre><code>' + escapeHtml(codeLines.join('\n')) + '</code></pre>');
+        continue;
+      }
+
+      if (/^\s*$/.test(line)) {
+        flushList();
+        i++;
+        continue;
+      }
+
+      if (/^\s*([-*_])(\s*\1){2,}\s*$/.test(line)) {
+        flushList();
+        htmlParts.push('<hr>');
+        i++;
+        continue;
+      }
+
+      const headerMatch = line.match(/^\s{0,3}(#{1,6})\s+(.*?)\s*#*\s*$/);
+      if (headerMatch) {
+        flushList();
+        const level = headerMatch[1].length;
+        htmlParts.push('<h' + level + '>' + renderMarkdownInline(escapeHtml(headerMatch[2])) + '</h' + level + '>');
+        i++;
+        continue;
+      }
+
+      if (/^\s*>\s?/.test(line)) {
+        flushList();
+        const quoteLines = [];
+        while (i < lines.length && /^\s*>\s?/.test(lines[i])) {
+          quoteLines.push(lines[i].replace(/^\s*>\s?/, ''));
+          i++;
+        }
+        htmlParts.push('<blockquote>' + renderMarkdown(quoteLines.join('\n')) + '</blockquote>');
+        continue;
+      }
+
+      const ulMatch = line.match(/^\s*[-*+]\s+(.*)$/);
+      if (ulMatch) {
+        if (!list || list.type !== 'ul') { flushList(); list = { type: 'ul', items: [] }; }
+        list.items.push('<li>' + renderMarkdownInline(escapeHtml(ulMatch[1])) + '</li>');
+        i++;
+        continue;
+      }
+
+      const olMatch = line.match(/^\s*\d+[.)]\s+(.*)$/);
+      if (olMatch) {
+        if (!list || list.type !== 'ol') { flushList(); list = { type: 'ol', items: [] }; }
+        list.items.push('<li>' + renderMarkdownInline(escapeHtml(olMatch[1])) + '</li>');
+        i++;
+        continue;
+      }
+
+      flushList();
+      const paraLines = [line];
+      i++;
+      while (i < lines.length &&
+        !/^\s*$/.test(lines[i]) &&
+        !/^\s*```/.test(lines[i]) &&
+        !/^\s{0,3}#{1,6}\s+/.test(lines[i]) &&
+        !/^\s*>\s?/.test(lines[i]) &&
+        !/^\s*[-*+]\s+/.test(lines[i]) &&
+        !/^\s*\d+[.)]\s+/.test(lines[i]) &&
+        !/^\s*([-*_])(\s*\1){2,}\s*$/.test(lines[i])) {
+        paraLines.push(lines[i]);
+        i++;
+      }
+      htmlParts.push('<p>' + renderMarkdownInline(escapeHtml(paraLines.join('\n'))).replace(/\n/g, '<br>') + '</p>');
+    }
+    flushList();
+    return htmlParts.join('');
   }
 
   function showStatus(message, type) {
@@ -1858,12 +2004,13 @@
       }).map(function (m) {
         let pricingLabel = '';
         const prompt = m.pricing && m.pricing.prompt ? parseFloat(m.pricing.prompt) : 0;
+        const pricePerM = prompt * 1000000;
         if (prompt === 0) {
           pricingLabel = 'free';
-        } else {
-          pricingLabel = '$' + (prompt * 1000000).toFixed(2) + '/1M tok';
+        } else if (pricePerM < PRICE_DISPLAY_MAX) {
+          pricingLabel = '$' + pricePerM.toFixed(2) + '/1M tok';
         }
-        return { id: m.id, name: m.name, pricingLabel: pricingLabel, price: prompt * 1000000 };
+        return { id: m.id, name: m.name, pricingLabel: pricingLabel, price: pricePerM };
       }).sort(function (a, b) { return a.id.localeCompare(b.id); });
 
       populateModelSelect(allModels, els.modelFilter.value);
