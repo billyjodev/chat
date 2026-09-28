@@ -55,6 +55,44 @@
   .justify-end .msg-content hr { border-top-color: rgba(255,255,255,.35); }
   .msg-content .katex-display { margin: 0.6em 0; overflow-x: auto; overflow-y: hidden; }
   .msg-content .katex { font-size: 1.05em; }
+  .msg-content .html-code-block { margin: 0.5em 0; border-radius: 0.5rem; overflow: hidden; }
+  .msg-content .html-code-block pre { margin: 0; border-radius: 0; }
+  .msg-content .html-code-toolbar {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: #1e293b; color: #cbd5e1; padding: 0.4rem 0.6rem; font-size: 0.75rem;
+  }
+  .msg-content .html-code-toolbar .html-code-lang { font-weight: 600; letter-spacing: .03em; margin-right: auto; }
+  .msg-content .html-code-btn {
+    background: rgba(255,255,255,0.12); color: #e2e8f0; border: none; border-radius: 0.35em;
+    padding: 0.2em 0.6em; font-size: 0.75rem; cursor: pointer; font-family: inherit;
+  }
+  .msg-content .html-code-btn:hover { background: rgba(255,255,255,0.25); }
+
+  .html-preview-modal-overlay {
+    position: fixed; inset: 0; background: rgba(15,23,42,.6); z-index: 70; display: none;
+  }
+  .html-preview-modal-overlay.open { display: block; }
+  .html-preview-modal {
+    position: fixed; inset: 0; z-index: 71; display: none; align-items: center; justify-content: center; padding: 1rem;
+  }
+  .html-preview-modal.open { display: flex; }
+  .html-preview-modal-card {
+    background: #fff; border-radius: 0.75rem; box-shadow: 0 20px 60px rgba(0,0,0,.35);
+    width: 100%; height: 100%; max-width: 1400px; display: flex; flex-direction: column; overflow: hidden;
+  }
+  .html-preview-modal-header {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0.75rem 1rem; border-bottom: 1px solid #e2e8f0; flex-shrink: 0; background: #f8fafc;
+  }
+  .html-preview-modal-title { font-size: 0.875rem; font-weight: 700; color: #0f172a; margin: 0; }
+  .html-preview-modal-actions { display: flex; gap: 0.5rem; align-items: center; flex-shrink: 0; }
+  .html-preview-modal-close {
+    border: none; background: transparent; font-size: 1.5rem; line-height: 1;
+    color: #94a3b8; cursor: pointer; padding: 0 0.25rem;
+  }
+  .html-preview-modal-close:hover { color: #334155; }
+  .html-preview-modal-body { flex: 1 1 auto; min-height: 0; }
+  .html-preview-modal-frame { width: 100%; height: 100%; border: none; display: block; background: #fff; }
 
   .msg-bubble-clickable { transition: box-shadow .15s, opacity .15s; }
   .msg-bubble-clickable:hover { opacity: 0.88; box-shadow: 0 0 0 2px rgba(99,102,241,.35); }
@@ -762,6 +800,23 @@
   </div>
 </div>
 
+<!-- HTML 코드블록 전체화면 미리보기 모달 -->
+<div id="htmlPreviewModalOverlay" class="html-preview-modal-overlay"></div>
+<div id="htmlPreviewModal" class="html-preview-modal" role="dialog" aria-modal="true" aria-labelledby="htmlPreviewModalTitle">
+  <div class="html-preview-modal-card">
+    <div class="html-preview-modal-header">
+      <h2 id="htmlPreviewModalTitle" class="html-preview-modal-title">HTML 미리보기</h2>
+      <div class="html-preview-modal-actions">
+        <button id="htmlPreviewModalDownloadBtn" type="button" class="adv-reset-btn">result.html로 저장</button>
+        <button id="closeHtmlPreviewModal" type="button" class="html-preview-modal-close" aria-label="닫기">&times;</button>
+      </div>
+    </div>
+    <div class="html-preview-modal-body">
+      <iframe id="htmlPreviewModalFrame" class="html-preview-modal-frame" sandbox="allow-scripts"></iframe>
+    </div>
+  </div>
+</div>
+
 <script>
 (function () {
   'use strict';
@@ -864,6 +919,11 @@
     apiPreviewModalResponseWrap: document.getElementById('apiPreviewModalResponseWrap'),
     apiPreviewModalStatus: document.getElementById('apiPreviewModalStatus'),
     apiPreviewModalResponse: document.getElementById('apiPreviewModalResponse'),
+    htmlPreviewModalOverlay: document.getElementById('htmlPreviewModalOverlay'),
+    htmlPreviewModal: document.getElementById('htmlPreviewModal'),
+    htmlPreviewModalFrame: document.getElementById('htmlPreviewModalFrame'),
+    htmlPreviewModalDownloadBtn: document.getElementById('htmlPreviewModalDownloadBtn'),
+    closeHtmlPreviewModal: document.getElementById('closeHtmlPreviewModal'),
 
     // 고급 설정 진입/모달
     openAdvancedBtn: document.getElementById('openAdvancedBtn'),
@@ -1011,7 +1071,22 @@
           i++;
         }
         i++;
-        htmlParts.push('<pre><code>' + escapeHtml(codeLines.join('\n')) + '</code></pre>');
+        const code = codeLines.join('\n');
+        const isHtml = /^html?$/i.test(fenceMatch[1]) || (!fenceMatch[1] && /^\s*<(!doctype|html)\b/i.test(code));
+        if (isHtml) {
+          htmlParts.push(
+            '<div class="html-code-block">' +
+              '<div class="html-code-toolbar">' +
+                '<span class="html-code-lang">HTML</span>' +
+                '<button type="button" class="html-code-btn html-preview-toggle-btn">미리보기</button>' +
+                '<button type="button" class="html-code-btn html-download-btn">result.html로 저장</button>' +
+              '</div>' +
+              '<pre><code>' + escapeHtml(code) + '</code></pre>' +
+            '</div>'
+          );
+        } else {
+          htmlParts.push('<pre><code>' + escapeHtml(code) + '</code></pre>');
+        }
         continue;
       }
 
@@ -1135,6 +1210,56 @@
       return extracted.mathList[Number(idx)];
     });
     return html;
+  }
+
+  // HTML 텍스트를 result.html 파일로 다운로드한다.
+  function downloadAsHtmlFile(htmlText) {
+    const blob = new Blob([htmlText], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'result.html';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+  }
+
+  let htmlPreviewModalCode = '';
+
+  function openHtmlPreviewModal(htmlText) {
+    htmlPreviewModalCode = htmlText;
+    els.htmlPreviewModalFrame.srcdoc = htmlText;
+    els.htmlPreviewModalOverlay.classList.add('open');
+    els.htmlPreviewModal.classList.add('open');
+  }
+
+  function closeHtmlPreviewModalFn() {
+    els.htmlPreviewModalOverlay.classList.remove('open');
+    els.htmlPreviewModal.classList.remove('open');
+    els.htmlPreviewModalFrame.srcdoc = '';
+    htmlPreviewModalCode = '';
+  }
+
+  // 메시지 안의 HTML 코드블록에 미리보기/저장 버튼 동작을 연결한다.
+  // (innerHTML로 새로 그려질 때마다 호출; 매번 새 엘리먼트라 중복 바인딩 걱정은 없다)
+  function wireHtmlCodeBlocks(container) {
+    container.querySelectorAll('.html-code-block').forEach(function (block) {
+      const codeEl = block.querySelector('pre code');
+      const previewBtn = block.querySelector('.html-preview-toggle-btn');
+      const downloadBtn = block.querySelector('.html-download-btn');
+      if (!codeEl || !previewBtn || !downloadBtn) return;
+
+      previewBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openHtmlPreviewModal(codeEl.textContent);
+      });
+
+      downloadBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        downloadAsHtmlFile(codeEl.textContent);
+      });
+    });
   }
 
   function showStatus(message, type) {
@@ -2139,6 +2264,7 @@
     const contentDiv = document.createElement('div');
     contentDiv.className = 'msg-content';
     contentDiv.innerHTML = renderMarkdown(content);
+    wireHtmlCodeBlocks(contentDiv);
     bubble.appendChild(contentDiv);
     wrapper.appendChild(bubble);
     els.chatArea.appendChild(wrapper);
@@ -2285,6 +2411,7 @@
                 contentDiv = appendMessageBubble('assistant', '', messages.length - 1);
               }
               contentDiv.innerHTML = renderMarkdown(assistantText);
+              wireHtmlCodeBlocks(contentDiv);
               scrollToBottom();
             }
           } catch (e) {
@@ -2362,6 +2489,14 @@
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && els.advancedModal.classList.contains('open')) closeAdvancedModal();
     if (e.key === 'Escape' && els.apiPreviewModal.classList.contains('open')) closeApiPreviewModalFn();
+    if (e.key === 'Escape' && els.htmlPreviewModal.classList.contains('open')) closeHtmlPreviewModalFn();
+  });
+
+  // HTML 코드블록 전체화면 미리보기 모달
+  els.closeHtmlPreviewModal.addEventListener('click', closeHtmlPreviewModalFn);
+  els.htmlPreviewModalOverlay.addEventListener('click', closeHtmlPreviewModalFn);
+  els.htmlPreviewModalDownloadBtn.addEventListener('click', function () {
+    downloadAsHtmlFile(htmlPreviewModalCode);
   });
 
   // 메인 화면에서 바로 API 호출 코드 보기 (고급 설정과 무관, 최근 대화 기준)
